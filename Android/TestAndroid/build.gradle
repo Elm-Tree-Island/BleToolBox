@@ -1,0 +1,37 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.3'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+version  = "v1.0.0"
+description = "Android Build Test Project"
+//ext {
+//    isDebugMode
+//}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+
+//    println "************ This is Mark Android Build Test ************"
+//    println version
+//    println project.description
+}
+
+//task showMe << {
+//    println "------- is Debug Mode :" + isDebugMode
+//}
