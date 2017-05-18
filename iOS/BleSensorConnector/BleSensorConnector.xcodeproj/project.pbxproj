@@ -11,9 +11,11 @@
 		4D5AAC881ECD6D0900DF1599 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5AAC871ECD6D0900DF1599 /* AppDelegate.m */; };
 		4D5AAC8B1ECD6D0900DF1599 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5AAC8A1ECD6D0900DF1599 /* ViewController.m */; };
 		4D5AAC901ECD6D0900DF1599 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D5AAC8F1ECD6D0900DF1599 /* Assets.xcassets */; };
-		4D5AACA51ECD763900DF1599 /* BLE3rdPartyCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5AAC9D1ECD763900DF1599 /* BLE3rdPartyCentralManager.m */; };
-		4D5AACA61ECD763900DF1599 /* BLE3rdPartySensorPeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5AACA41ECD763900DF1599 /* BLE3rdPartySensorPeripheral.m */; };
+		4D5AACA51ECD763900DF1599 /* BLESensorCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5AAC9D1ECD763900DF1599 /* BLESensorCentralManager.m */; };
+		4D5AACA61ECD763900DF1599 /* BLEPowerSensorPeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5AACA41ECD763900DF1599 /* BLEPowerSensorPeripheral.m */; };
 		4D5AACAA1ECD7C8B00DF1599 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D5AACA91ECD7C8B00DF1599 /* CoreBluetooth.framework */; };
+		4D5AACAD1ECD7F1200DF1599 /* BleSensorConnectorUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5AACAC1ECD7F1200DF1599 /* BleSensorConnectorUtil.m */; };
+		4D5AACB01ECD8EB500DF1599 /* BLECSCSensorPeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5AACAF1ECD8EB500DF1599 /* BLECSCSensorPeripheral.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,13 +27,16 @@
 		4D5AAC8A1ECD6D0900DF1599 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		4D5AAC8F1ECD6D0900DF1599 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4D5AAC941ECD6D0900DF1599 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4D5AAC9C1ECD763900DF1599 /* BLE3rdPartyCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLE3rdPartyCentralManager.h; path = Classes/BLE3rdPartyCentralManager.h; sourceTree = "<group>"; };
-		4D5AAC9D1ECD763900DF1599 /* BLE3rdPartyCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BLE3rdPartyCentralManager.m; path = Classes/BLE3rdPartyCentralManager.m; sourceTree = "<group>"; };
-		4D5AAC9F1ECD763900DF1599 /* BLE3rdPartySensorDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLE3rdPartySensorDefinitions.h; sourceTree = "<group>"; };
-		4D5AACA31ECD763900DF1599 /* BLE3rdPartySensorPeripheral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLE3rdPartySensorPeripheral.h; sourceTree = "<group>"; };
-		4D5AACA41ECD763900DF1599 /* BLE3rdPartySensorPeripheral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLE3rdPartySensorPeripheral.m; sourceTree = "<group>"; };
+		4D5AAC9C1ECD763900DF1599 /* BLESensorCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLESensorCentralManager.h; path = Classes/BLESensorCentralManager.h; sourceTree = "<group>"; };
+		4D5AAC9D1ECD763900DF1599 /* BLESensorCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BLESensorCentralManager.m; path = Classes/BLESensorCentralManager.m; sourceTree = "<group>"; };
+		4D5AACA31ECD763900DF1599 /* BLEPowerSensorPeripheral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEPowerSensorPeripheral.h; sourceTree = "<group>"; };
+		4D5AACA41ECD763900DF1599 /* BLEPowerSensorPeripheral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEPowerSensorPeripheral.m; sourceTree = "<group>"; };
 		4D5AACA71ECD766D00DF1599 /* Definitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Definitions.h; sourceTree = "<group>"; };
 		4D5AACA91ECD7C8B00DF1599 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		4D5AACAB1ECD7F1200DF1599 /* BleSensorConnectorUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BleSensorConnectorUtil.h; sourceTree = "<group>"; };
+		4D5AACAC1ECD7F1200DF1599 /* BleSensorConnectorUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BleSensorConnectorUtil.m; sourceTree = "<group>"; };
+		4D5AACAE1ECD8EB500DF1599 /* BLECSCSensorPeripheral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLECSCSensorPeripheral.h; sourceTree = "<group>"; };
+		4D5AACAF1ECD8EB500DF1599 /* BLECSCSensorPeripheral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLECSCSensorPeripheral.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,8 +71,8 @@
 		4D5AAC821ECD6D0900DF1599 /* BleSensorConnector */ = {
 			isa = PBXGroup;
 			children = (
-				4D5AAC9C1ECD763900DF1599 /* BLE3rdPartyCentralManager.h */,
-				4D5AAC9D1ECD763900DF1599 /* BLE3rdPartyCentralManager.m */,
+				4D5AAC9C1ECD763900DF1599 /* BLESensorCentralManager.h */,
+				4D5AAC9D1ECD763900DF1599 /* BLESensorCentralManager.m */,
 				4D5AAC9E1ECD763900DF1599 /* Common */,
 				4D5AACA01ECD763900DF1599 /* CRC */,
 				4D5AACA11ECD763900DF1599 /* HR */,
@@ -94,8 +99,9 @@
 		4D5AAC9E1ECD763900DF1599 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				4D5AAC9F1ECD763900DF1599 /* BLE3rdPartySensorDefinitions.h */,
 				4D5AACA71ECD766D00DF1599 /* Definitions.h */,
+				4D5AACAB1ECD7F1200DF1599 /* BleSensorConnectorUtil.h */,
+				4D5AACAC1ECD7F1200DF1599 /* BleSensorConnectorUtil.m */,
 			);
 			name = Common;
 			path = Classes/Common;
@@ -104,6 +110,8 @@
 		4D5AACA01ECD763900DF1599 /* CRC */ = {
 			isa = PBXGroup;
 			children = (
+				4D5AACAE1ECD8EB500DF1599 /* BLECSCSensorPeripheral.h */,
+				4D5AACAF1ECD8EB500DF1599 /* BLECSCSensorPeripheral.m */,
 			);
 			name = CRC;
 			path = Classes/CRC;
@@ -120,8 +128,8 @@
 		4D5AACA21ECD763900DF1599 /* Power */ = {
 			isa = PBXGroup;
 			children = (
-				4D5AACA31ECD763900DF1599 /* BLE3rdPartySensorPeripheral.h */,
-				4D5AACA41ECD763900DF1599 /* BLE3rdPartySensorPeripheral.m */,
+				4D5AACA31ECD763900DF1599 /* BLEPowerSensorPeripheral.h */,
+				4D5AACA41ECD763900DF1599 /* BLEPowerSensorPeripheral.m */,
 			);
 			name = Power;
 			path = Classes/Power;
@@ -206,10 +214,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D5AAC8B1ECD6D0900DF1599 /* ViewController.m in Sources */,
-				4D5AACA61ECD763900DF1599 /* BLE3rdPartySensorPeripheral.m in Sources */,
+				4D5AACA61ECD763900DF1599 /* BLEPowerSensorPeripheral.m in Sources */,
 				4D5AAC881ECD6D0900DF1599 /* AppDelegate.m in Sources */,
-				4D5AACA51ECD763900DF1599 /* BLE3rdPartyCentralManager.m in Sources */,
+				4D5AACB01ECD8EB500DF1599 /* BLECSCSensorPeripheral.m in Sources */,
+				4D5AACA51ECD763900DF1599 /* BLESensorCentralManager.m in Sources */,
 				4D5AAC851ECD6D0900DF1599 /* main.m in Sources */,
+				4D5AACAD1ECD7F1200DF1599 /* BleSensorConnectorUtil.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,6 +361,7 @@
 				4D5AAC991ECD6D0900DF1599 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

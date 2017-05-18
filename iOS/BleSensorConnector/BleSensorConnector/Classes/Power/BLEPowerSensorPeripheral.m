@@ -6,18 +6,19 @@
 //  Copyright © 2017 Beijing Beast Technology Co.,Ltd. All rights reserved.
 //
 
-#import "BLE3rdPartySensorPeripheral.h"
+#import "BLEPowerSensorPeripheral.h"
+#import "BleSensorConnectorUtil.h"
 
-@implementation BLE3rdPartySensorPeripheral
+@implementation BLEPowerSensorPeripheral
 
 /**
- 初始化Peripheral方法
+ Initalization Method
 
- @param aPeripheral
- @param aDelegate
- @return
+ @param aPeripheral <#aPeripheral description#>
+ @param aDelegate <#aDelegate description#>
+ @return <#return value description#>
  */
-- (BLE3rdPartySensorPeripheral *) initWithPeripheral:(CBPeripheral *)aPeripheral delegate:(id<BLE3rdPartySensorPeripheralDelegate>)aDelegate {
+- (BLEPowerSensorPeripheral *) initWithPeripheral:(CBPeripheral *)aPeripheral delegate:(id<BLEPowerSensorPeripheralDelegate>)aDelegate {
     self = [super init];
     
     if (self) {
@@ -34,7 +35,7 @@
  *  开始扫描设备上的Service信息
  */
 - (void)scanServices {
-    [self.pwrPeripheral discoverServices:nil];
+    [self.pwrPeripheral discoverServices:@[[BleSensorConnectorUtil UUIDServicePower]]];
 }
 
 /**
@@ -66,14 +67,14 @@
         NSLog(@"发现Service - UUID = %@", s.UUID);
         
         // 如果是Vodka的Service UUID
-        if ([s.UUID isEqual:[CBUUID UUIDWithString:GATT_OFFICIAL_UUID_SERVICE_CYCLING_POWER]]) {
+        if ([s.UUID isEqual:[BleSensorConnectorUtil UUIDServicePower]]) {
             NSLog(@"\n\n\n--------------- 发现 Vodka Service --------------\n");
             self.pwrMeterService = s;
             
             // 查询接收数据的Characteristic
             
             NSArray *characteristicsForDiscover = @[
-                                                    [CBUUID UUIDWithString:GATT_OFFICIAL_UUID_CHARACTERISTIC_CYCLING_POWER]
+                                                    [BleSensorConnectorUtil UUIDServicePower]
                                                     ];
             [self.pwrPeripheral discoverCharacteristics: characteristicsForDiscover forService:self.pwrMeterService];
             
@@ -96,7 +97,7 @@
     
     for (CBCharacteristic *c in [aService characteristics]) {
         NSLog(@"发现 Sensor characteristic， UUID = %@", c.UUID);
-        if ([c.UUID isEqual:[CBUUID UUIDWithString:GATT_OFFICIAL_UUID_CHARACTERISTIC_CYCLING_POWER]]) {
+        if ([c.UUID isEqual:[BleSensorConnectorUtil UUIDServicePower]]) {
             self.pwrCharacteristic = c;
             [self.pwrPeripheral setNotifyValue:YES forCharacteristic:self.pwrCharacteristic];
             break;
@@ -155,18 +156,6 @@
         NSLog(@"[ERROR] 接收Notification状态更新 失败，characteristic = %@, "
                    @"error = %@", characteristic, [error localizedDescription]);
         return;
-    }
-}
-
-/**
- *  接收写入结果
- */
-- (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
-    if (error) {
-        NSLog(@"[ERROR] 写入数据失败, error = %@, characteristic = %@", error.localizedDescription, characteristic.UUID.UUIDString);
-        return;
-    } else {
-        NSLog(@"写入数据成功, characteristic UUID = %@", characteristic.UUID.UUIDString);
     }
 }
 

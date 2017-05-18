@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "BLE3rdPartyCentralManager.h"
+#import "BLESensorCentralManager.h"
 
 @interface ViewController ()
 
@@ -22,7 +22,7 @@
     self.title = @"Sensor Connector";
     
     // 开始蓝牙扫描
-    [[BLE3rdPartyCentralManager defaultManager] scan];
+    [[BLESensorCentralManager defaultManager] scan];
     
     // 功率
     self.lblPower = [[UILabel alloc] initWithFrame:CGRectMake(0, 80, 200, 40)];
@@ -34,7 +34,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
-    [[BLE3rdPartyCentralManager defaultManager] disconnect];
+    [[BLESensorCentralManager defaultManager] disconnect];
 }
 
 - (void)didReceiveMemoryWarning {

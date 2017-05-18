@@ -9,6 +9,9 @@
 #ifndef Definitions_h
 #define Definitions_h
 
+#define SCREEN_WIDTH                       ([UIScreen mainScreen].bounds.size.width)
+#define SCREEN_HEIGHT                      ([UIScreen mainScreen].bounds.size.height)
+
 // 单例声明宏
 #define instance_interface(className, instanceMethod)   \
 \

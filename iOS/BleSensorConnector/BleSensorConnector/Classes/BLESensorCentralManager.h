@@ -7,12 +7,9 @@
 //
 
 #import <CoreBluetooth/CoreBluetooth.h>
-#import "BLE3rdPartySensorPeripheral.h"
-#import "BLE3rdPartySensorDefinitions.h"
 #import "Definitions.h"
 
-@interface BLE3rdPartyCentralManager : NSObject
-
+@interface BLESensorCentralManager : NSObject
 
 instance_interface(BLE3rdPartyCentralManager, defaultManager)
 
