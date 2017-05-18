@@ -22,7 +22,7 @@ import java.util.UUID;
 public class BLEPowerSensorManager extends BLESensorManager {
     private static final String TAG = "BLE-Power-Sensor";
     public static final String SERVICE_UUID_CYCLING_POWER = "00001818-0000-1000-8000-00805F9B34FB";
-    private static final String CHARACTERISTIC_UUID_CYCLING_POWER = "00002-0000-1000-8000-00805F9B34FB";
+    private static final String CHARACTERISTIC_UUID_CYCLING_POWER = "00002A63-0000-1000-8000-00805F9B34FB";
 
     private BluetoothGatt mBtGattPower;
     private BLEPowerManagerCallbacks mCallbacks;
