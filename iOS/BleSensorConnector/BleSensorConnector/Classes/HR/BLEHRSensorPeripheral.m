@@ -124,16 +124,30 @@
         uint8_t *byteArray = (uint8_t *)[data bytes];
         assert(data != nil);
         
-        NSMutableString *strResult = [[NSMutableString alloc] init];
         
+        int format = -1;
+        int flag = characteristic.properties;
+        uint16_t hrValue = 0;
+        if ((flag & 0x01) != 0) {
+            format = 2; // 16bit
+            hrValue = *(uint16_t *)(byteArray + 1);
+        } else {
+            format = 1; // 8bit
+            hrValue = *(uint8_t *)(byteArray + 1);
+        }
+        
+        NSMutableString *strResult = [[NSMutableString alloc] init];
         for (int i = 0; i < [data length]; i++) {
             [strResult appendFormat:@"%02X ", byteArray[i]];
         }
-        
         NSLog(@"收到的 %d 字节数据：%@, characteristic = %@", length, strResult, characteristic.UUID.UUIDString);
-        int16_t pwrValueInWatts = *(int16_t *)(byteArray + 2);
-        NSLog(@"HR ：%d", pwrValueInWatts);
-        //        [self.delegate didReceiveData:strResult];
+        
+        NSLog(@"HR ：%d", hrValue);
+        
+        // Call the callback
+//        if (self.delegate != nil) {
+//            [self.delegate didHRDataReceived:hrValue];
+//        }
     }
 }
 
