@@ -58,7 +58,7 @@
  @return <#return value description#>
  */
 + (CBUUID *) UUIDCharacteristicHR {
-    return [CBUUID UUIDWithString:UUID_GATT_OFFICIAL_SERVICE_HEART_RATE];
+    return [CBUUID UUIDWithString:UUID_GATT_OFFICIAL_CHARACTERISTIC_HR];
 }
 
 @end

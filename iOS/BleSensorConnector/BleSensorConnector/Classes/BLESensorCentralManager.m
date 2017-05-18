@@ -11,12 +11,14 @@
 
 #import "BLEPowerSensorPeripheral.h"
 #import "BLECSCSensorPeripheral.h"
+#import "BLEHRSensorPeripheral.h"
 
-@interface BLESensorCentralManager() <CBCentralManagerDelegate, CBPeripheralDelegate, BLEPowerSensorPeripheralDelegate, BLECSCSensorPeripheralDelegate>
+@interface BLESensorCentralManager() <CBCentralManagerDelegate, CBPeripheralDelegate, BLEPowerSensorPeripheralDelegate, BLECSCSensorPeripheralDelegate, BLEHRSensorPeripheralDelegate>
 
 @property (nonatomic, strong) CBCentralManager *centralManager;
 @property (nonatomic, strong) BLEPowerSensorPeripheral *sensorPowerPeripheral;
 @property (nonatomic, strong) BLECSCSensorPeripheral *sensorCscPeripheral;
+@property (nonatomic, strong) BLEHRSensorPeripheral *sensorHrPeripheral;
 
 @property (nonatomic, strong) NSString *foundPeripheralType;
 
@@ -109,13 +111,21 @@ instance_implementation(BLESensorCentralManager, defaultManager)
 
             } else if ([service isEqual:[BleSensorConnectorUtil UUIDServiceHR]]) {
                 NSLog(@"Found BLE HR METER Sensor!!!");
+                if (self.sensorHrPeripheral == nil) {
+                    self.sensorHrPeripheral = [[BLEHRSensorPeripheral alloc] initWithPeripheral:peripheral delegate:self];
+                }
                 self.foundPeripheralType = UUID_GATT_OFFICIAL_ADV_HEART_RATE;
+                [self.centralManager connectPeripheral:peripheral options:@{ CBConnectPeripheralOptionNotifyOnDisconnectionKey: [NSNumber numberWithBool:YES] }];
+                break;
+
             }
         }
     }
 }
 
-// 该方法为主线程方法
+/**
+ Called when peripheral connected.
+ */
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
     NSLog(@"BLE - 已连接到 peripheral : %@", peripheral.name);
     
@@ -125,7 +135,7 @@ instance_implementation(BLESensorCentralManager, defaultManager)
         } else if ([self.foundPeripheralType isEqualToString:UUID_GATT_OFFICIAL_ADV_CYCLING_POWER]) {
             [self.sensorPowerPeripheral scanServices];
         } else if ([self.foundPeripheralType isEqualToString:UUID_GATT_OFFICIAL_ADV_HEART_RATE]) {
-            
+            [self.sensorHrPeripheral scanServices];
         }
     }
 }
@@ -138,6 +148,16 @@ instance_implementation(BLESensorCentralManager, defaultManager)
         if (self.sensorPowerPeripheral) {
             [self.sensorPowerPeripheral cleanup];
             self.sensorPowerPeripheral = nil;
+        }
+        
+        if (self.sensorHrPeripheral) {
+            [self.sensorHrPeripheral cleanup];
+            self.sensorHrPeripheral = nil;
+        }
+        
+        if (self.sensorCscPeripheral) {
+            [self.sensorCscPeripheral cleanup];
+            self.sensorCscPeripheral = nil;
         }
     }
 }

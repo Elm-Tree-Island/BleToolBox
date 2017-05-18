@@ -16,6 +16,7 @@
 		4D5AACAA1ECD7C8B00DF1599 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D5AACA91ECD7C8B00DF1599 /* CoreBluetooth.framework */; };
 		4D5AACAD1ECD7F1200DF1599 /* BleSensorConnectorUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5AACAC1ECD7F1200DF1599 /* BleSensorConnectorUtil.m */; };
 		4D5AACB01ECD8EB500DF1599 /* BLECSCSensorPeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5AACAF1ECD8EB500DF1599 /* BLECSCSensorPeripheral.m */; };
+		4D5AACB31ECDAFB700DF1599 /* BLEHRSensorPeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5AACB21ECDAFB700DF1599 /* BLEHRSensorPeripheral.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,8 @@
 		4D5AACAC1ECD7F1200DF1599 /* BleSensorConnectorUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BleSensorConnectorUtil.m; sourceTree = "<group>"; };
 		4D5AACAE1ECD8EB500DF1599 /* BLECSCSensorPeripheral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLECSCSensorPeripheral.h; sourceTree = "<group>"; };
 		4D5AACAF1ECD8EB500DF1599 /* BLECSCSensorPeripheral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLECSCSensorPeripheral.m; sourceTree = "<group>"; };
+		4D5AACB11ECDAFB700DF1599 /* BLEHRSensorPeripheral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEHRSensorPeripheral.h; sourceTree = "<group>"; };
+		4D5AACB21ECDAFB700DF1599 /* BLEHRSensorPeripheral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEHRSensorPeripheral.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +123,8 @@
 		4D5AACA11ECD763900DF1599 /* HR */ = {
 			isa = PBXGroup;
 			children = (
+				4D5AACB11ECDAFB700DF1599 /* BLEHRSensorPeripheral.h */,
+				4D5AACB21ECDAFB700DF1599 /* BLEHRSensorPeripheral.m */,
 			);
 			name = HR;
 			path = Classes/HR;
@@ -218,6 +223,7 @@
 				4D5AAC881ECD6D0900DF1599 /* AppDelegate.m in Sources */,
 				4D5AACB01ECD8EB500DF1599 /* BLECSCSensorPeripheral.m in Sources */,
 				4D5AACA51ECD763900DF1599 /* BLESensorCentralManager.m in Sources */,
+				4D5AACB31ECDAFB700DF1599 /* BLEHRSensorPeripheral.m in Sources */,
 				4D5AAC851ECD6D0900DF1599 /* main.m in Sources */,
 				4D5AACAD1ECD7F1200DF1599 /* BleSensorConnectorUtil.m in Sources */,
 			);
