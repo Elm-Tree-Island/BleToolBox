@@ -1,6 +1,6 @@
-package com.example.mark.testandroid.power;
+package com.example.mark.connector.power;
 
-import com.example.mark.testandroid.common.BLESensorCallbacks;
+import com.example.mark.connector.common.BLESensorCallbacks;
 
 /**
  * Created by Mark Chen on 17/05/2017.

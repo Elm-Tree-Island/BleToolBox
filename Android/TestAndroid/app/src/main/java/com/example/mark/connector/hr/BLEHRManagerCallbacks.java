@@ -1,8 +1,6 @@
-package com.example.mark.testandroid.hr;
+package com.example.mark.connector.hr;
 
-import com.example.mark.testandroid.common.BLESensorCallbacks;
-
-import java.util.Calendar;
+import com.example.mark.connector.common.BLESensorCallbacks;
 
 /**
  * Created by Mark Chen on 17/05/2017.

@@ -1,4 +1,4 @@
-package com.example.mark.testandroid.csc;
+package com.example.mark.connector.csc;
 
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
@@ -10,8 +10,8 @@ import android.bluetooth.BluetoothProfile;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.mark.testandroid.common.BLESensorManager;
-import com.example.mark.testandroid.common.BLESensorUtil;
+import com.example.mark.connector.common.BLESensorManager;
+import com.example.mark.connector.common.BLESensorUtil;
 
 import java.util.UUID;
 

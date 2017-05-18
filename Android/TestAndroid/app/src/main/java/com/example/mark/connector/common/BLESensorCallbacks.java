@@ -1,4 +1,4 @@
-package com.example.mark.testandroid.common;
+package com.example.mark.connector.common;
 
 /**
  * Created by Mark Chen on 17/05/2017.

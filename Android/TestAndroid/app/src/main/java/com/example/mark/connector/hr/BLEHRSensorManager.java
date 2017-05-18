@@ -1,4 +1,4 @@
-package com.example.mark.testandroid.hr;
+package com.example.mark.connector.hr;
 
 /**
  * Created by Mark Chen on 15/05/2017.
@@ -14,8 +14,8 @@ import android.bluetooth.BluetoothProfile;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.mark.testandroid.common.BLESensorManager;
-import com.example.mark.testandroid.common.BLESensorUtil;
+import com.example.mark.connector.common.BLESensorManager;
+import com.example.mark.connector.common.BLESensorUtil;
 
 import java.util.UUID;
 

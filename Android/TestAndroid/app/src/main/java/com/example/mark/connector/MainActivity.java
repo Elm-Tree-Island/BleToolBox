@@ -1,4 +1,4 @@
-package com.example.mark.testandroid;
+package com.example.mark.connector;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -17,14 +17,15 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.example.mark.testandroid.common.BLESensorUtil;
-import com.example.mark.testandroid.common.BLECSCUtil;
-import com.example.mark.testandroid.csc.BLECSCSensorManager;
-import com.example.mark.testandroid.csc.BLECSCSensorManagerCallbacks;
-import com.example.mark.testandroid.hr.BLEHRManagerCallbacks;
-import com.example.mark.testandroid.hr.BLEHRSensorManager;
-import com.example.mark.testandroid.power.BLEPowerManagerCallbacks;
-import com.example.mark.testandroid.power.BLEPowerSensorManager;
+import com.example.mark.connector.common.BLECSCUtil;
+import com.example.mark.testandroid.R;
+import com.example.mark.connector.common.BLESensorUtil;
+import com.example.mark.connector.csc.BLECSCSensorManager;
+import com.example.mark.connector.csc.BLECSCSensorManagerCallbacks;
+import com.example.mark.connector.hr.BLEHRManagerCallbacks;
+import com.example.mark.connector.hr.BLEHRSensorManager;
+import com.example.mark.connector.power.BLEPowerManagerCallbacks;
+import com.example.mark.connector.power.BLEPowerSensorManager;
 
 import java.util.ArrayList;
 import java.util.List;

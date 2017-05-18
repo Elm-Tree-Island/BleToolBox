@@ -1,6 +1,6 @@
-package com.example.mark.testandroid.csc;
+package com.example.mark.connector.csc;
 
-import com.example.mark.testandroid.common.BLESensorCallbacks;
+import com.example.mark.connector.common.BLESensorCallbacks;
 
 /**
  * Cycling Speed and Cadence callbacks.

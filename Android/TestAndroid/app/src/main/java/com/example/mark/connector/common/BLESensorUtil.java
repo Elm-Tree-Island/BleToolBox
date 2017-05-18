@@ -1,4 +1,4 @@
-package com.example.mark.testandroid.common;
+package com.example.mark.connector.common;
 
 import java.util.UUID;
 
