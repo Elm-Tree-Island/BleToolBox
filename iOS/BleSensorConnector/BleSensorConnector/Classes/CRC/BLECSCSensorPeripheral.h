@@ -11,9 +11,9 @@
 
 @protocol BLECSCSensorPeripheralDelegate <NSObject>
 
-- (void) didSpeedDataReceived:(int) speedInMeterPerSec;
+- (void) didSpeedWheelRevolution:(int)wheelRevolution lastWheelEventTime:(int)lastEventTime;
 
-- (void) didCadenceDataReceived:(int) cadence;
+- (void) didCadenceRevolution:(int)cadenceRev lastCadenceEventTime:(int)lastEventTime;
 
 @end
 

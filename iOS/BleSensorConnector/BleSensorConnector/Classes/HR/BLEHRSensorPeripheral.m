@@ -120,34 +120,27 @@
         
         NSData *data = [characteristic value];
         int length = (int)data.length;
-        assert(data != nil);
-        uint8_t *byteArray = (uint8_t *)[data bytes];
-        assert(data != nil);
-        
-        
-        int format = -1;
-        int flag = characteristic.properties;
-        uint16_t hrValue = 0;
-        if ((flag & 0x01) != 0) {
-            format = 2; // 16bit
-            hrValue = *(uint16_t *)(byteArray + 1);
-        } else {
-            format = 1; // 8bit
-            hrValue = *(uint8_t *)(byteArray + 1);
+        if (length > 0) {
+            const uint8_t *byteArray = (uint8_t *)[data bytes];
+            uint16_t hrValue = 0;
+            
+            if ((byteArray[0] & 0x01) == 0) {
+                hrValue = byteArray[1];
+            } else {
+                hrValue = CFSwapInt16HostToLittle(*(uint16_t *)(&byteArray[1]));
+            }
+
+            NSMutableString *strResult = [[NSMutableString alloc] init];
+            for (int i = 0; i < [data length]; i++) {
+                [strResult appendFormat:@"%02X ", byteArray[i]];
+            }
+            NSLog(@"收到的 %d 字节数据：%@, characteristic = %@", length, strResult, characteristic.UUID.UUIDString);
+
+            // Call the callback
+            if (self.delegate != nil) {
+                [self.delegate didHRDataReceived:hrValue];
+            }
         }
-        
-        NSMutableString *strResult = [[NSMutableString alloc] init];
-        for (int i = 0; i < [data length]; i++) {
-            [strResult appendFormat:@"%02X ", byteArray[i]];
-        }
-        NSLog(@"收到的 %d 字节数据：%@, characteristic = %@", length, strResult, characteristic.UUID.UUIDString);
-        
-        NSLog(@"HR ：%d", hrValue);
-        
-        // Call the callback
-//        if (self.delegate != nil) {
-//            [self.delegate didHRDataReceived:hrValue];
-//        }
     }
 }
 

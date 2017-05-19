@@ -43,4 +43,25 @@
 
 + (CBUUID *) UUIDCharacteristicHR;
 
+/**
+ Calculate the speed value by the the CSC wheel revolutions, last wheel event time and wheel circumference.
+ Unit: km/h
+
+ @param wheelRevolutions wheel revolution count
+ @param lastTime Wheel Last Event Time
+ @param wheelCircumference Wheel last event time
+ @return speed value in km/h
+ */
++ (double)calculateSpeedWithWheelRev:(int)wheelRevolutions lastWheelEventTime:(int)lastTime wheelCircumferenceInMM:(int)wheelCircumference;
+
+/**
+ Calculate crank cadence by crank revolutions and last crank event time.
+ Unit: RPM
+
+ @param crankRevolutions int value, Crank revolution count get from CSC sensor
+ @param lastTime Crank last event time, int.
+ @return Unsigned int value.
+ */
++ (uint)calculateCadenceWithCrankRev:(int)crankRevolutions lastCrankEventTime:(int)lastTime;
+
 @end

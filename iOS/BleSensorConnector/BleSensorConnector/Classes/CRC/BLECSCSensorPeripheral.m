@@ -124,20 +124,53 @@
         
         NSData *data = [characteristic value];
         int length = (int)data.length;
-        assert(data != nil);
-        uint8_t *byteArray = (uint8_t *)[data bytes];
-        assert(data != nil);
-        
-        NSMutableString *strResult = [[NSMutableString alloc] init];
-        
-        for (int i = 0; i < [data length]; i++) {
-            [strResult appendFormat:@"%02X ", byteArray[i]];
+        if (length > 0) {
+            uint8_t *byteArray = (uint8_t *)[data bytes];
+            
+            NSMutableString *strResult = [[NSMutableString alloc] init];
+            for (int i = 0; i < [data length]; i++) {
+                [strResult appendFormat:@"%02X ", byteArray[i]];
+            }
+            
+            int offset = 0;
+            int flags = byteArray[offset];
+            offset += 1;
+            BOOL wheelRevPresent = (flags & 0x01) > 0;
+            BOOL crankRevPresent = (flags & 0x02) > 0;
+            
+            uint32_t wheelRevolutions = 0;
+            uint16_t lastWheelEventTime = 0;
+            if (wheelRevPresent == YES) {
+                wheelRevolutions = *((uint32_t *)(byteArray + offset));
+                offset += 4;
+                
+                lastWheelEventTime = *((uint16_t *)(byteArray + offset));
+                offset += 2;
+                
+                // Call the callbacks
+                if (self.delegate != nil) {
+                    [self.delegate didSpeedWheelRevolution:wheelRevolutions lastWheelEventTime:lastWheelEventTime];
+                }
+            }
+            
+            uint16_t crankRevolutions = 0;
+            uint16_t lastCrankEventTime = 0;
+            if (crankRevPresent == YES) {
+                crankRevolutions = *((uint16_t *)(byteArray + offset));
+                offset += 2;
+                
+                lastCrankEventTime = *((uint16_t *)(byteArray + offset));
+                offset += 2;
+                
+                // Call the call back
+                if (self.delegate != nil) {
+                    [self.delegate didCadenceRevolution:crankRevolutions lastCadenceEventTime:lastCrankEventTime];
+                }
+            }
+            
+            NSLog(@"收到的 %d 字节数据：%@, characteristic = %@", length, strResult, characteristic.UUID.UUIDString);
+            NSLog(@"CSC Data ：Wheel Revolutions = %d, LastWheelEventTime = %d, CrankRevolutions = %d, LastEventTime = %d", wheelRevolutions, lastWheelEventTime, crankRevolutions, lastCrankEventTime);
         }
-        
-        NSLog(@"收到的 %d 字节数据：%@, characteristic = %@", length, strResult, characteristic.UUID.UUIDString);
-        int16_t pwrValueInWatts = *(int16_t *)(byteArray + 2);
-        NSLog(@"CSC ：%d", pwrValueInWatts);
-        //        [self.delegate didReceiveData:strResult];
     }
 }
 

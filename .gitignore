@@ -53,3 +53,17 @@ google-services.json
 freeline.py
 freeline/
 freeline_project_description.json
+
+.DS_Store
+
+xcuserdata
+*.xccheckout
+*.moved-aside
+*.xcuserstate
+*.xcscmblueprint
+
+Pods/
+
+Carthage/Build
+Carthage/Checkouts
+

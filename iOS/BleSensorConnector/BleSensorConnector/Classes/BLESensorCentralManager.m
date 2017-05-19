@@ -9,11 +9,7 @@
 #import "BLESensorCentralManager.h"
 #import "BleSensorConnectorUtil.h"
 
-#import "BLEPowerSensorPeripheral.h"
-#import "BLECSCSensorPeripheral.h"
-#import "BLEHRSensorPeripheral.h"
-
-@interface BLESensorCentralManager() <CBCentralManagerDelegate, CBPeripheralDelegate, BLEPowerSensorPeripheralDelegate, BLECSCSensorPeripheralDelegate, BLEHRSensorPeripheralDelegate>
+@interface BLESensorCentralManager() <CBCentralManagerDelegate, CBPeripheralDelegate>
 
 @property (nonatomic, strong) CBCentralManager *centralManager;
 @property (nonatomic, strong) BLEPowerSensorPeripheral *sensorPowerPeripheral;
@@ -44,9 +40,9 @@ instance_implementation(BLESensorCentralManager, defaultManager)
 // 手机是否开启蓝牙，返回蓝牙使能状态
 
 /**
- Check
+ Check if BLE is enabled.
 
- @return <#return value description#>
+ @return BOOL
  */
 - (BOOL)isBLEEnabled {
     return (self.centralManager.state == CBCentralManagerStatePoweredOn);
@@ -94,7 +90,7 @@ instance_implementation(BLESensorCentralManager, defaultManager)
             if ([service isEqual:[BleSensorConnectorUtil UUIDServicePower]]) {
                 NSLog(@"Found BLE PWOER METER Sensor!!!");
                 if (self.sensorPowerPeripheral == nil) {
-                    self.sensorPowerPeripheral = [[BLEPowerSensorPeripheral alloc] initWithPeripheral:peripheral delegate:self];
+                    self.sensorPowerPeripheral = [[BLEPowerSensorPeripheral alloc] initWithPeripheral:peripheral delegate:self.powerDelegate];
                 }
                 self.foundPeripheralType = UUID_GATT_OFFICIAL_ADV_CYCLING_POWER;
                 [self.centralManager connectPeripheral:peripheral options:@{ CBConnectPeripheralOptionNotifyOnDisconnectionKey: [NSNumber numberWithBool:YES] }];
@@ -103,7 +99,7 @@ instance_implementation(BLESensorCentralManager, defaultManager)
             } else if ([service isEqual:[BleSensorConnectorUtil UUIDServiceCSC]]) {
                 NSLog(@"Found BLE Speed & Cadence Sensor!!!");
                 if (self.sensorCscPeripheral == nil) {
-                    self.sensorCscPeripheral = [[BLECSCSensorPeripheral alloc] initWithPeripheral:peripheral delegate:self];
+                    self.sensorCscPeripheral = [[BLECSCSensorPeripheral alloc] initWithPeripheral:peripheral delegate:self.cscDelegate];
                 }
                 self.foundPeripheralType = UUID_GATT_OFFICIAL_ADV_CYCLING_SPEED_AND_CADENCE;
                 [self.centralManager connectPeripheral:peripheral options:@{ CBConnectPeripheralOptionNotifyOnDisconnectionKey: [NSNumber numberWithBool:YES] }];
@@ -112,12 +108,11 @@ instance_implementation(BLESensorCentralManager, defaultManager)
             } else if ([service isEqual:[BleSensorConnectorUtil UUIDServiceHR]]) {
                 NSLog(@"Found BLE HR METER Sensor!!!");
                 if (self.sensorHrPeripheral == nil) {
-                    self.sensorHrPeripheral = [[BLEHRSensorPeripheral alloc] initWithPeripheral:peripheral delegate:self];
+                    self.sensorHrPeripheral = [[BLEHRSensorPeripheral alloc] initWithPeripheral:peripheral delegate:self.hrDelegate];
                 }
                 self.foundPeripheralType = UUID_GATT_OFFICIAL_ADV_HEART_RATE;
                 [self.centralManager connectPeripheral:peripheral options:@{ CBConnectPeripheralOptionNotifyOnDisconnectionKey: [NSNumber numberWithBool:YES] }];
                 break;
-
             }
         }
     }

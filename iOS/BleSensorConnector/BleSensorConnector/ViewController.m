@@ -8,8 +8,9 @@
 
 #import "ViewController.h"
 #import "BLESensorCentralManager.h"
+#import "BleSensorConnectorUtil.h"
 
-@interface ViewController ()
+@interface ViewController () <BLEHRSensorPeripheralDelegate, BLEPowerSensorPeripheralDelegate, BLECSCSensorPeripheralDelegate>
 
 @property (nonatomic, strong) UILabel *lblPower;
 
@@ -23,6 +24,9 @@
     
     // 开始蓝牙扫描
     [[BLESensorCentralManager defaultManager] scan];
+    [BLESensorCentralManager defaultManager].powerDelegate = self;
+    [BLESensorCentralManager defaultManager].cscDelegate = self;
+    [BLESensorCentralManager defaultManager].hrDelegate = self;
     
     // 功率
     self.lblPower = [[UILabel alloc] initWithFrame:CGRectMake(0, 80, 200, 40)];
@@ -42,5 +46,25 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - BLEHRSensorPeripheralDelegate Method
+- (void) didHRDataReceived:(int) hr {
+    NSLog(@"HR : %d BPM", hr);
+}
+
+#pragma mark - BLEPowerSensorPeripheralDelegate
+- (void) didPowerDataReceived:(int)powerInWatts {
+    NSLog(@"Power : %d watts", powerInWatts);
+}
+
+#pragma mark - BLECSCSensorPeripheralDelegate
+- (void) didSpeedWheelRevolution:(int)wheelRevolution lastWheelEventTime:(int)lastEventTime {
+    double speed = [BleSensorConnectorUtil calculateSpeedWithWheelRev:wheelRevolution lastWheelEventTime:lastEventTime wheelCircumferenceInMM:2046];
+    NSLog(@"Speed : %.1f km/h", speed);
+}
+
+- (void) didCadenceRevolution:(int)cadenceRev lastCadenceEventTime:(int)lastEventTime {
+    int cadence = [BleSensorConnectorUtil calculateCadenceWithCrankRev:cadenceRev lastCrankEventTime:lastEventTime];
+    NSLog(@"Cadence : %d RPM", cadence);
+}
 
 @end
