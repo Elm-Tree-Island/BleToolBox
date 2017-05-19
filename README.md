@@ -1,5 +1,15 @@
 # BLE Sensor Connect
-Make your phone connect BLE(Bluetooth Low Energy) cycling sensors, including Heart Rate sensor, cadence &amp; cycling sensor, power sensors. The repository demo includes Android and iOS project.
+Make your phone connect BLE(Bluetooth Low Energy) cycling sensors.
+
+## Platform
+- Android 4.4+
+- iOS 9.0+
+
+## Supported Sensor
+
+- Bluetooth Heart Rate sensor
+- Bluetooth Cycling and Speed Sensor
+- Bluetooth Power sensor
 
 ## Android Tips:
 
