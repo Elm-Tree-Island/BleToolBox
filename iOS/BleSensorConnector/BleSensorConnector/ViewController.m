@@ -13,6 +13,9 @@
 @interface ViewController () <BLEHRSensorPeripheralDelegate, BLEPowerSensorPeripheralDelegate, BLECSCSensorPeripheralDelegate>
 
 @property (nonatomic, strong) UILabel *lblPower;
+@property (nonatomic, strong) UILabel *lblHR;
+@property (nonatomic, strong) UILabel *lblCadence;
+@property (nonatomic, strong) UILabel *lblSpeed;
 
 @end
 
@@ -31,8 +34,26 @@
     // 功率
     self.lblPower = [[UILabel alloc] initWithFrame:CGRectMake(0, 80, 200, 40)];
     self.lblPower.textColor = [UIColor whiteColor];
+    self.lblPower.text = @"Power: ";
     [self.view addSubview:self.lblPower];
-
+    
+    // 心率
+    self.lblHR = [[UILabel alloc] initWithFrame:CGRectMake(0, 120, 200, 40)];
+    self.lblHR.textColor = [UIColor whiteColor];
+    self.lblHR.text = @"HR: ";
+    [self.view addSubview:self.lblHR];
+    
+    // 速度
+    self.lblSpeed = [[UILabel alloc] initWithFrame:CGRectMake(0, 160, 200, 40)];
+    self.lblSpeed.textColor = [UIColor whiteColor];
+    self.lblSpeed.text = @"Speed: ";
+    [self.view addSubview:self.lblSpeed];
+    
+    // 速度
+    self.lblCadence = [[UILabel alloc] initWithFrame:CGRectMake(0, 200, 200, 40)];
+    self.lblCadence.textColor = [UIColor whiteColor];
+    self.lblCadence.text = @"Cadence: ";
+    [self.view addSubview:self.lblCadence];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -48,23 +69,31 @@
 
 #pragma mark - BLEHRSensorPeripheralDelegate Method
 - (void) didHRDataReceived:(int) hr {
-    NSLog(@"HR : %d BPM", hr);
+    NSString *logContent = [NSString stringWithFormat:@"HR : %d BPM", hr];
+    NSLog(@"%@", logContent);
+    self.lblHR.text = logContent;
 }
 
 #pragma mark - BLEPowerSensorPeripheralDelegate
 - (void) didPowerDataReceived:(int)powerInWatts {
-    NSLog(@"Power : %d watts", powerInWatts);
+    NSString *logContent = [NSString stringWithFormat:@"Power : %d watts", powerInWatts];
+    NSLog(@"%@", logContent);
+    self.lblPower.text = logContent;
 }
 
 #pragma mark - BLECSCSensorPeripheralDelegate
 - (void) didSpeedWheelRevolution:(int)wheelRevolution lastWheelEventTime:(int)lastEventTime {
     double speed = [BleSensorConnectorUtil calculateSpeedWithWheelRev:wheelRevolution lastWheelEventTime:lastEventTime wheelCircumferenceInMM:2046];
-    NSLog(@"Speed : %.1f km/h", speed);
+    NSString *logContent = [NSString stringWithFormat:@"Speed : %.1f km/h", speed];
+    NSLog(@"%@", logContent);
+    self.lblSpeed.text = logContent;
 }
 
 - (void) didCadenceRevolution:(int)cadenceRev lastCadenceEventTime:(int)lastEventTime {
     int cadence = [BleSensorConnectorUtil calculateCadenceWithCrankRev:cadenceRev lastCrankEventTime:lastEventTime];
-    NSLog(@"Cadence : %d RPM", cadence);
+    NSString *logContent = [NSString stringWithFormat:@"Cadence : %d RPM", cadence];
+    NSLog(@"%@", logContent);
+    self.lblCadence.text = logContent;
 }
 
 @end
