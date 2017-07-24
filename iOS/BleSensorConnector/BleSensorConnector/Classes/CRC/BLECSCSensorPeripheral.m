@@ -30,17 +30,11 @@
     return self;
 }
 
-#pragma mark - 工具方法
-/**
- *  开始扫描设备上的Service信息
- */
+#pragma mark - Tools
 - (void)scanServices {
     [self.peripheral discoverServices:@[[BleSensorConnectorUtil UUIDServiceCSC]]];
 }
 
-/**
- *  清理资源
- */
 - (void)cleanup {
     if (!self.peripheral) {
         return;
@@ -51,27 +45,22 @@
     self.peripheral = nil;
 }
 
-#pragma mark - CBPeripheralDelegate 方法
+#pragma mark - CBPeripheralDelegate
 
-/*
- *  发现Service
- */
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error {
     if (error) {
         NSLog(@"[ERROR] Discover Service Error : %@", error);
         return;
     }
     
-    // 解析所有Services
+    // Scan all services
     for (CBService *s in [aPeripheral services]) {
-        NSLog(@"发现Service - UUID = %@", s.UUID);
+        NSLog(@"Found Service - UUID = %@", s.UUID);
         
-        // 如果是Vodka的Service UUID
         if ([s.UUID isEqual:[BleSensorConnectorUtil UUIDServiceCSC]]) {
-            NSLog(@"\n\n\n--------------- 发现 Vodka Service --------------\n");
             self.service = s;
             
-            // 查询接收数据的Characteristic
+            // Scan Characteristics
             [self.peripheral discoverCharacteristics:@[[BleSensorConnectorUtil UUIDCharacteristicCSC]] forService:self.service];
             
             break;
@@ -80,7 +69,7 @@
 }
 
 /*
- *  发现Characteristic
+ *  FOUND Characteristic
  */
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverCharacteristicsForService:(CBService *)aService error:(NSError *)error {
     if (error) {
@@ -92,7 +81,7 @@
     }
     
     for (CBCharacteristic *c in [aService characteristics]) {
-        NSLog(@"发现 Sensor characteristic， UUID = %@", c.UUID);
+        NSLog(@"Found Sensor characteristic， UUID = %@", c.UUID);
         if ([c.UUID isEqual:[BleSensorConnectorUtil UUIDCharacteristicCSC]]) {
             self.characteristic = c;
             [self.peripheral setNotifyValue:YES forCharacteristic:self.characteristic];
@@ -102,7 +91,7 @@
 }
 
 /*!
- *  读取数据更新
+ *  Read the data update.
  *
  *  @param peripheral		The peripheral providing this information.
  *  @param characteristic	A <code>CBCharacteristic</code> object.
@@ -168,19 +157,19 @@
                 }
             }
             
-            NSLog(@"收到的 %d 字节数据：%@, characteristic = %@", length, strResult, characteristic.UUID.UUIDString);
+            NSLog(@"Receive %dB data：%@, characteristic = %@", length, strResult, characteristic.UUID.UUIDString);
             NSLog(@"CSC Data ：Wheel Revolutions = %d, LastWheelEventTime = %d, CrankRevolutions = %d, LastEventTime = %d", wheelRevolutions, lastWheelEventTime, crankRevolutions, lastCrankEventTime);
         }
     }
 }
 
 /**
- *  接收Notification状态更新
+ *  Receive Notification state update
  */
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic: (CBCharacteristic *)characteristic error:(NSError *)error {
     // Check Error.
     if (error) {
-        NSLog(@"[ERROR] 接收Notification状态更新 失败，characteristic = %@, "
+        NSLog(@"[ERROR] Receive Notification state update - FAILED，characteristic = %@, "
               @"error = %@", characteristic, [error localizedDescription]);
         return;
     }

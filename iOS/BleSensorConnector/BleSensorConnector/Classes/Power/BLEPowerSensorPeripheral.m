@@ -3,7 +3,7 @@
 //  Vodka
 //
 //  Created by Mark C.J. on 11/05/2017.
-//  Copyright © 2017 Beijing Beast Technology Co.,Ltd. All rights reserved.
+//  Copyright © 2017 CHEN JIAN <chenjian345@gmail.com> All rights reserved.
 //
 
 #import "BLEPowerSensorPeripheral.h"
@@ -31,15 +31,12 @@
 }
 
 #pragma mark - 工具方法
-/**
- *  开始扫描设备上的Service信息
- */
 - (void)scanServices {
     [self.pwrPeripheral discoverServices:@[[BleSensorConnectorUtil UUIDServicePower]]];
 }
 
 /**
- *  清理资源
+ *  Clean up resource
  */
 - (void)cleanup {
     if (!self.pwrPeripheral) {
@@ -51,28 +48,20 @@
     self.pwrPeripheral = nil;
 }
 
-#pragma mark - CBPeripheralDelegate 方法
+#pragma mark - CBPeripheralDelegate
 
-/*
- *  发现Service
- */
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error {
     if (error) {
         NSLog(@"[ERROR] Discover Service Error : %@", error);
         return;
     }
     
-    // 解析所有Services
     for (CBService *s in [aPeripheral services]) {
-        NSLog(@"发现Service - UUID = %@", s.UUID);
+        NSLog(@"FOUND Service - UUID = %@", s.UUID);
         
         // 如果是Vodka的Service UUID
         if ([s.UUID isEqual:[BleSensorConnectorUtil UUIDServicePower]]) {
-            NSLog(@"\n\n\n--------------- 发现 Vodka Service --------------\n");
             self.pwrMeterService = s;
-            
-            // 查询接收数据的Characteristic
-            
             NSArray *characteristicsForDiscover = @[
                                                     [BleSensorConnectorUtil UUIDServicePower]
                                                     ];
@@ -96,7 +85,7 @@
     }
     
     for (CBCharacteristic *c in [aService characteristics]) {
-        NSLog(@"发现 Sensor characteristic， UUID = %@", c.UUID);
+        NSLog(@"FOUND Sensor characteristic， UUID = %@", c.UUID);
         if ([c.UUID isEqual:[BleSensorConnectorUtil UUIDServicePower]]) {
             self.pwrCharacteristic = c;
             [self.pwrPeripheral setNotifyValue:YES forCharacteristic:self.pwrCharacteristic];
@@ -106,7 +95,7 @@
 }
 
 /*!
- *  读取数据更新
+ *  Read the data update
  *
  *  @param peripheral		The peripheral providing this information.
  *  @param characteristic	A <code>CBCharacteristic</code> object.
@@ -138,22 +127,18 @@
             [strResult appendFormat:@"%02X ", byteArray[i]];
         }
 
-        NSLog(@"收到的 %d 字节数据：%@, characteristic = %@", length, strResult, characteristic.UUID.UUIDString);
+        NSLog(@"RECEIVE %dB data：%@, characteristic = %@", length, strResult, characteristic.UUID.UUIDString);
         
-        // 功率
         int16_t pwrValueInWatts = *(int16_t *)(byteArray + 2);
-        NSLog(@"功率 ：%d w", pwrValueInWatts);
+        NSLog(@"Power ：%d w", pwrValueInWatts);
 //        [self.delegate didReceiveData:strResult];
     }
 }
 
-/**
- *  接收Notification状态更新
- */
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic: (CBCharacteristic *)characteristic error:(NSError *)error {
     // Check Error.
     if (error) {
-        NSLog(@"[ERROR] 接收Notification状态更新 失败，characteristic = %@, "
+        NSLog(@"[ERROR] Receive Notification state update - FAILED，characteristic = %@, "
                    @"error = %@", characteristic, [error localizedDescription]);
         return;
     }

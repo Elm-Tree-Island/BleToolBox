@@ -33,14 +33,8 @@
  */
 - (BLEHRSensorPeripheral *) initWithPeripheral:(CBPeripheral *)aPeripheral delegate:(id<BLEHRSensorPeripheralDelegate>)aDelegate;
 
-/**
- *  开始扫描设备上的Service信息
- */
 - (void)scanServices;
 
-/**
- *  清理资源
- */
 - (void)cleanup;
 
 @end

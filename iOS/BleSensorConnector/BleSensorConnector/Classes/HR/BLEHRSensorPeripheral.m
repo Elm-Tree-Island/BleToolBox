@@ -31,16 +31,11 @@
 }
 
 #pragma mark - 工具方法
-/**
- *  开始扫描设备上的Service信息
- */
+
 - (void)scanServices {
     [self.peripheral discoverServices:@[[BleSensorConnectorUtil UUIDServiceHR]]];
 }
 
-/**
- *  清理资源
- */
 - (void)cleanup {
     if (!self.peripheral) {
         return;
@@ -53,16 +48,13 @@
 
 #pragma mark - CBPeripheralDelegate 方法
 
-/*
- *  发现Service
- */
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error {
     if (error) {
         NSLog(@"[ERROR] Discover Service Error : %@", error);
         return;
     }
     
-    // 解析所有Services
+    // Scan all services
     for (CBService *s in [aPeripheral services]) {
         NSLog(@"Discover Service - UUID = %@", s.UUID);
         if ([s.UUID isEqual:[BleSensorConnectorUtil UUIDServiceHR]]) {
@@ -76,7 +68,7 @@
 }
 
 /*
- *  发现Characteristic
+ *  Scan Characteristic
  */
 - (void)peripheral:(CBPeripheral *)aPeripheral didDiscoverCharacteristicsForService:(CBService *)aService error:(NSError *)error {
     if (error) {
@@ -98,7 +90,7 @@
 }
 
 /*!
- *  读取数据更新
+ *  Read data update
  *
  *  @param peripheral		The peripheral providing this information.
  *  @param characteristic	A <code>CBCharacteristic</code> object.
@@ -134,7 +126,7 @@
             for (int i = 0; i < [data length]; i++) {
                 [strResult appendFormat:@"%02X ", byteArray[i]];
             }
-            NSLog(@"收到的 %d 字节数据：%@, characteristic = %@", length, strResult, characteristic.UUID.UUIDString);
+            NSLog(@"RECEIVE %dB data：%@, characteristic = %@", length, strResult, characteristic.UUID.UUIDString);
 
             // Call the callback
             if (self.delegate != nil) {
@@ -144,13 +136,10 @@
     }
 }
 
-/**
- *  接收Notification状态更新
- */
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic: (CBCharacteristic *)characteristic error:(NSError *)error {
     // Check Error.
     if (error) {
-        NSLog(@"[ERROR] 接收Notification状态更新 失败，characteristic = %@, "
+        NSLog(@"[ERROR] Receive Notification state update - FAILED，characteristic = %@, "
               @"error = %@", characteristic, [error localizedDescription]);
         return;
     }

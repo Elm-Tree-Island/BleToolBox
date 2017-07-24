@@ -36,12 +36,12 @@
 - (BLECSCSensorPeripheral *) initWithPeripheral:(CBPeripheral *)aPeripheral delegate:(id<BLECSCSensorPeripheralDelegate>)aDelegate;
 
 /**
- *  开始扫描设备上的Service信息
+ *  Scan service on the peripheral
  */
 - (void)scanServices;
 
 /**
- *  清理资源
+ *  Clean up resources
  */
 - (void)cleanup;
 

@@ -3,7 +3,7 @@
 //  Vodka
 //
 //  Created by Mark C.J. on 11/05/2017.
-//  Copyright © 2017 Beijing Beast Technology Co.,Ltd. All rights reserved.
+//  Copyright © 2017 CHEN JIAN <chenjian345@gmail.com> All rights reserved.
 //
 
 #import <CoreBluetooth/CoreBluetooth.h>

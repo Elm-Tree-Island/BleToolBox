@@ -3,7 +3,7 @@
 //  Vodka
 //
 //  Created by Mark C.J. on 11/05/2017.
-//  Copyright © 2017 Beijing Beast Technology Co.,Ltd. All rights reserved.
+//  Copyright © 2017 CHEN JIAN <chenjian345@gmail.com> All rights reserved.
 //
 
 #import "BLESensorCentralManager.h"
@@ -29,15 +29,13 @@ instance_implementation(BLESensorCentralManager, defaultManager)
     self = [super init];
     
     if (self) {
-        // 在主线程中进行扫描
+        // Scan device in the main thread
         self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:[NSDictionary dictionaryWithObject:@YES forKey:CBCentralManagerOptionShowPowerAlertKey]];
         self.sensorPowerPeripheral = nil;
     }
     
     return self;
 }
-
-// 手机是否开启蓝牙，返回蓝牙使能状态
 
 /**
  Check if BLE is enabled.
@@ -69,20 +67,20 @@ instance_implementation(BLESensorCentralManager, defaultManager)
 #pragma mark - CBCentralManagerDelegate
 
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central {
-    NSLog(@"当前蓝牙状态为 = %ld", (long)central.state);
+    NSLog(@"Current Bluetooth State = %ld", (long)central.state);
     if (central.state == CBManagerStatePoweredOn) {
         [self scanSensors];
     }
 }
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI {
-    // 读出广播中的设备名，例如Wahoo骑行台：KICKR SNAP 8E1D
+    // Device name, e.g. Wahoo KICKR SNAP 8E1D
     NSString *localName = [advertisementData objectForKey:@"kCBAdvDataLocalName"];
-    // 读出广播中的能提供的Service UUID,包括功率等
+    // Service UUIDs
     NSArray *arrServices = [advertisementData objectForKey:@"kCBAdvDataServiceUUIDs"];
     
     if (localName != nil && localName.length > 0) {
-        NSLog(@"搜到设备 %@", localName);
+        NSLog(@"FOUNT Device %@", localName);
     }
 
     if (arrServices.count > 0) {
@@ -122,7 +120,7 @@ instance_implementation(BLESensorCentralManager, defaultManager)
  Called when peripheral connected.
  */
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
-    NSLog(@"BLE - 已连接到 peripheral : %@", peripheral.name);
+    NSLog(@"BLE - CONNECTED TO : %@", peripheral.name);
     
     if (peripheral.state == CBPeripheralStateConnected) {
         if ([self.foundPeripheralType isEqualToString:UUID_GATT_OFFICIAL_ADV_CYCLING_SPEED_AND_CADENCE]) {
@@ -137,7 +135,7 @@ instance_implementation(BLESensorCentralManager, defaultManager)
 
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(nullable NSError *)error {
     if (error) {
-        NSLog(@"[ERROR] 连接设备失败， error = %@", error.localizedDescription);
+        NSLog(@"[ERROR] CONNECT DEVICE FAILED， error = %@", error.localizedDescription);
         // 清理资源
         
         if (self.sensorPowerPeripheral) {
@@ -159,7 +157,7 @@ instance_implementation(BLESensorCentralManager, defaultManager)
 
 #pragma mark - Tools Method
 - (void)scanSensors {
-    NSLog(@"开始扫描设备");
+    NSLog(@"START SCAN ...");
     NSArray *arrServices = @[[BleSensorConnectorUtil UUIDAdvHR], [BleSensorConnectorUtil UUIDAdvCSC], [BleSensorConnectorUtil UUIDAdvPower]];
     [self.centralManager scanForPeripheralsWithServices:arrServices options:@{ CBCentralManagerScanOptionAllowDuplicatesKey: @YES }];
 }
