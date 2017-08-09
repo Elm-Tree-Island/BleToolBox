@@ -10,8 +10,19 @@ import com.example.mark.connector.common.BLESensorCallbacks;
 
 public interface BLECSCSensorManagerCallbacks extends BLESensorCallbacks {
 
-    public void onSpeedMeasurementReceived(final int wheelRevolutions, final int wheelCrankEventTime);
+    /**
+     * Speed Update, Only Speed Data update
+     *
+     * @param wheelRevolutions          Wheel revolutions count
+     * @param wheelCrankEventTime       Last wheel event time, unix time.
+     */
+    void onSpeedMeasurementReceived(final int wheelRevolutions, final int wheelCrankEventTime);
 
-    public void onCadenceMeasurementReceived(final int crankRevolutions, final int lastCrankEventTime);
-
+    /**
+     * Cadence Update, only cadence data update
+     *
+     * @param crankRevolutions          Cumulative Crank Revolutions
+     * @param lastCrankEventTime        Last Event Time
+     */
+    void onCadenceMeasurementReceived(final int crankRevolutions, final int lastCrankEventTime);
 }

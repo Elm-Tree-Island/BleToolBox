@@ -112,7 +112,7 @@ public class BLECSCSensorManager extends BLESensorManager {
                     lastCrankEventTime = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT16, offset);
                 }
                 mCallbacks.onSpeedMeasurementReceived(wheelRevolutions, lastWheelEventTime);
-                mCallbacks.onCadenceMeasurementReceived(wheelRevolutions, lastCrankEventTime);
+                mCallbacks.onCadenceMeasurementReceived(crankRevolutions, lastCrankEventTime);
             }
         }
     };
