@@ -74,11 +74,11 @@ instance_implementation(BLESensorCentralManager, defaultManager)
     }
     
     if (self.sensorHrPeripheral) {
-        [self.centralManager cancelPeripheralConnection:self.sensorHrPeripheral];
+        [self.centralManager cancelPeripheralConnection:self.sensorHrPeripheral.peripheral];
     }
     
     if (self.sensorCscPeripheral) {
-        [self.centralManager cancelPeripheralConnection:self.sensorCscPeripheral];
+        [self.centralManager cancelPeripheralConnection:self.sensorCscPeripheral.peripheral];
     }
     
     return YES;
