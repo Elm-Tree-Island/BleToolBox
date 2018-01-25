@@ -33,22 +33,22 @@
     [BLESensorCentralManager defaultManager].hrDelegate = self;
     
     // 功率
-    self.lblPower = [[UILabel alloc] initWithFrame:CGRectMake(0, 80, 200, 40)];
+    self.lblPower = [[UILabel alloc] initWithFrame:CGRectMake(20, 80, 200, 40)];
     self.lblPower.text = @"Power: ";
     [self.view addSubview:self.lblPower];
     
     // 心率
-    self.lblHR = [[UILabel alloc] initWithFrame:CGRectMake(0, 120, 200, 40)];
+    self.lblHR = [[UILabel alloc] initWithFrame:CGRectMake(20, 120, 200, 40)];
     self.lblHR.text = @"HR: ";
     [self.view addSubview:self.lblHR];
     
     // 速度
-    self.lblSpeed = [[UILabel alloc] initWithFrame:CGRectMake(0, 160, 200, 40)];
+    self.lblSpeed = [[UILabel alloc] initWithFrame:CGRectMake(20, 160, 200, 40)];
     self.lblSpeed.text = @"Speed: ";
     [self.view addSubview:self.lblSpeed];
     
     // 速度
-    self.lblCadence = [[UILabel alloc] initWithFrame:CGRectMake(0, 200, 200, 40)];
+    self.lblCadence = [[UILabel alloc] initWithFrame:CGRectMake(20, 200, 200, 40)];
     self.lblCadence.text = @"Cadence: ";
     [self.view addSubview:self.lblCadence];
 }
