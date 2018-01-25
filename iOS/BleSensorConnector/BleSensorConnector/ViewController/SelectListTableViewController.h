@@ -1,5 +1,5 @@
 //
-//  SelectListViewController.h
+//  SelectListTableViewController.h
 //  BleSensorConnector
 //
 //  Created by Mark on 2018/1/25.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SelectListViewController : UIViewController
+@interface SelectListTableViewController : UITableViewController
 
 @end

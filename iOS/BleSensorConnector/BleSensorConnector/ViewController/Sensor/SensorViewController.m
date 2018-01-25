@@ -24,6 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Sensor Connector";
+    self.view.backgroundColor = [UIColor whiteColor];
     
     // 开始蓝牙扫描
     [[BLESensorCentralManager defaultManager] scan];
@@ -33,25 +34,21 @@
     
     // 功率
     self.lblPower = [[UILabel alloc] initWithFrame:CGRectMake(0, 80, 200, 40)];
-    self.lblPower.textColor = [UIColor whiteColor];
     self.lblPower.text = @"Power: ";
     [self.view addSubview:self.lblPower];
     
     // 心率
     self.lblHR = [[UILabel alloc] initWithFrame:CGRectMake(0, 120, 200, 40)];
-    self.lblHR.textColor = [UIColor whiteColor];
     self.lblHR.text = @"HR: ";
     [self.view addSubview:self.lblHR];
     
     // 速度
     self.lblSpeed = [[UILabel alloc] initWithFrame:CGRectMake(0, 160, 200, 40)];
-    self.lblSpeed.textColor = [UIColor whiteColor];
     self.lblSpeed.text = @"Speed: ";
     [self.view addSubview:self.lblSpeed];
     
     // 速度
     self.lblCadence = [[UILabel alloc] initWithFrame:CGRectMake(0, 200, 200, 40)];
-    self.lblCadence.textColor = [UIColor whiteColor];
     self.lblCadence.text = @"Cadence: ";
     [self.view addSubview:self.lblCadence];
 }

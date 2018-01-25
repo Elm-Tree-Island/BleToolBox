@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "SensorViewController.h"
+#import "SelectListTableViewController.h"
 
 @interface AppDelegate ()
 
@@ -20,9 +20,10 @@
     // Override point for customization after application launch.
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    SensorViewController *rootVC = [[SensorViewController alloc] init];
-//    self.window.backgroundColor = [UIColor whiteColor];
-    self.window.rootViewController = rootVC;
+    SelectListTableViewController *selectListTableVC = [[SelectListTableViewController alloc] init];
+    
+    UINavigationController *rootNaviVC = [[UINavigationController alloc] initWithRootViewController:selectListTableVC];
+    self.window.rootViewController = rootNaviVC;
     [self.window makeKeyAndVisible];
     
     return YES;
