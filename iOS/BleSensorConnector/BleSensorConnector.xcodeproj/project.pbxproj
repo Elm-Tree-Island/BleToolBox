@@ -17,6 +17,8 @@
 		4D5AACAD1ECD7F1200DF1599 /* BleSensorConnectorUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5AACAC1ECD7F1200DF1599 /* BleSensorConnectorUtil.m */; };
 		4D5AACB01ECD8EB500DF1599 /* BLECSCSensorPeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5AACAF1ECD8EB500DF1599 /* BLECSCSensorPeripheral.m */; };
 		4D5AACB31ECDAFB700DF1599 /* BLEHRSensorPeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5AACB21ECDAFB700DF1599 /* BLEHRSensorPeripheral.m */; };
+		4D62DC362019C1F800FAD509 /* BeaconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D62DC342019C1F800FAD509 /* BeaconViewController.m */; };
+		4D62DC372019C1F800FAD509 /* BeaconViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D62DC352019C1F800FAD509 /* BeaconViewController.xib */; };
 		4DBAE7642019AF7D00EDD918 /* SelectListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBAE7622019AF7D00EDD918 /* SelectListTableViewController.m */; };
 		4DBAE7652019AF7D00EDD918 /* SelectListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DBAE7632019AF7D00EDD918 /* SelectListTableViewController.xib */; };
 /* End PBXBuildFile section */
@@ -42,6 +44,9 @@
 		4D5AACAF1ECD8EB500DF1599 /* BLECSCSensorPeripheral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLECSCSensorPeripheral.m; sourceTree = "<group>"; };
 		4D5AACB11ECDAFB700DF1599 /* BLEHRSensorPeripheral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEHRSensorPeripheral.h; sourceTree = "<group>"; };
 		4D5AACB21ECDAFB700DF1599 /* BLEHRSensorPeripheral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEHRSensorPeripheral.m; sourceTree = "<group>"; };
+		4D62DC332019C1F800FAD509 /* BeaconViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BeaconViewController.h; sourceTree = "<group>"; };
+		4D62DC342019C1F800FAD509 /* BeaconViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BeaconViewController.m; sourceTree = "<group>"; };
+		4D62DC352019C1F800FAD509 /* BeaconViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BeaconViewController.xib; sourceTree = "<group>"; };
 		4DBAE7612019AF7D00EDD918 /* SelectListTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectListTableViewController.h; sourceTree = "<group>"; };
 		4DBAE7622019AF7D00EDD918 /* SelectListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectListTableViewController.m; sourceTree = "<group>"; };
 		4DBAE7632019AF7D00EDD918 /* SelectListTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectListTableViewController.xib; sourceTree = "<group>"; };
@@ -184,6 +189,9 @@
 		4DBAE75A20199CC700EDD918 /* Beacon */ = {
 			isa = PBXGroup;
 			children = (
+				4D62DC332019C1F800FAD509 /* BeaconViewController.h */,
+				4D62DC342019C1F800FAD509 /* BeaconViewController.m */,
+				4D62DC352019C1F800FAD509 /* BeaconViewController.xib */,
 			);
 			path = Beacon;
 			sourceTree = "<group>";
@@ -246,6 +254,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D62DC372019C1F800FAD509 /* BeaconViewController.xib in Resources */,
 				4D5AAC901ECD6D0900DF1599 /* Assets.xcassets in Resources */,
 				4DBAE7652019AF7D00EDD918 /* SelectListTableViewController.xib in Resources */,
 			);
@@ -266,6 +275,7 @@
 				4D5AACA51ECD763900DF1599 /* BLESensorCentralManager.m in Sources */,
 				4D5AACB31ECDAFB700DF1599 /* BLEHRSensorPeripheral.m in Sources */,
 				4D5AAC851ECD6D0900DF1599 /* main.m in Sources */,
+				4D62DC362019C1F800FAD509 /* BeaconViewController.m in Sources */,
 				4D5AACAD1ECD7F1200DF1599 /* BleSensorConnectorUtil.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
