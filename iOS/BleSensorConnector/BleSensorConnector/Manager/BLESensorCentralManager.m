@@ -49,7 +49,7 @@ instance_implementation(BLESensorCentralManager, defaultManager)
 /**
  *  Start Connect the SpeedX BLE Devices.
  */
-- (void)scan {
+- (void)startScan {
     NSLog(@"=============== Start Scan BLE Sensors ===============");
     
     if (self.centralManager.state == CBCentralManagerStatePoweredOn) {
@@ -59,9 +59,33 @@ instance_implementation(BLESensorCentralManager, defaultManager)
     }
 }
 
+/**
+ Stop BLE scan
+ */
+- (void)stopScan {
+    if (self.centralManager.state == CBCentralManagerStatePoweredOn) {
+        [self.centralManager stopScan];
+    }
+}
+
 - (BOOL) disconnect {
-    [self.centralManager cancelPeripheralConnection:self.sensorPowerPeripheral.pwrPeripheral];
+    if (self.sensorPowerPeripheral) {
+        [self.centralManager cancelPeripheralConnection:self.sensorPowerPeripheral.pwrPeripheral];
+    }
+    
+    if (self.sensorHrPeripheral) {
+        [self.centralManager cancelPeripheralConnection:self.sensorHrPeripheral];
+    }
+    
+    if (self.sensorCscPeripheral) {
+        [self.centralManager cancelPeripheralConnection:self.sensorCscPeripheral];
+    }
+    
     return YES;
+}
+
+- (void)dealloc {
+    NSLog(@"%@ dealloc method called", self.class);
 }
 
 #pragma mark - CBCentralManagerDelegate
@@ -137,21 +161,27 @@ instance_implementation(BLESensorCentralManager, defaultManager)
     if (error) {
         NSLog(@"[ERROR] CONNECT DEVICE FAILED， error = %@", error.localizedDescription);
         // 清理资源
-        
-        if (self.sensorPowerPeripheral) {
-            [self.sensorPowerPeripheral cleanup];
-            self.sensorPowerPeripheral = nil;
-        }
-        
-        if (self.sensorHrPeripheral) {
-            [self.sensorHrPeripheral cleanup];
-            self.sensorHrPeripheral = nil;
-        }
-        
-        if (self.sensorCscPeripheral) {
-            [self.sensorCscPeripheral cleanup];
-            self.sensorCscPeripheral = nil;
-        }
+        [self cleanupPeripheralResource];
+    }
+}
+
+/*!
+ *  @method centralManager:didDisconnectPeripheral:error:
+ *
+ *  @param central      The central manager providing this information.
+ *  @param peripheral   The <code>CBPeripheral</code> that has disconnected.
+ *  @param error        If an error occurred, the cause of the failure.
+ *
+ *  @discussion         This method is invoked upon the disconnection of a peripheral that was connected by {@link connectPeripheral:options:}. If the disconnection
+ *                      was not initiated by {@link cancelPeripheralConnection}, the cause will be detailed in the <i>error</i> parameter. Once this method has been
+ *                      called, no more methods will be invoked on <i>peripheral</i>'s <code>CBPeripheralDelegate</code>.
+ *
+ */
+- (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(nullable NSError *)error {
+    if (error == nil) {
+        [self cleanupPeripheralResource];
+    } else {
+        NSLog(@"Fail Disconnect");
     }
 }
 
@@ -160,6 +190,23 @@ instance_implementation(BLESensorCentralManager, defaultManager)
     NSLog(@"START SCAN ...");
     NSArray *arrServices = @[[BleSensorConnectorUtil UUIDAdvHR], [BleSensorConnectorUtil UUIDAdvCSC], [BleSensorConnectorUtil UUIDAdvPower]];
     [self.centralManager scanForPeripheralsWithServices:arrServices options:@{ CBCentralManagerScanOptionAllowDuplicatesKey: @YES }];
+}
+
+- (void)cleanupPeripheralResource {
+    if (self.sensorPowerPeripheral) {
+        [self.sensorPowerPeripheral cleanup];
+        self.sensorPowerPeripheral = nil;
+    }
+    
+    if (self.sensorHrPeripheral) {
+        [self.sensorHrPeripheral cleanup];
+        self.sensorHrPeripheral = nil;
+    }
+    
+    if (self.sensorCscPeripheral) {
+        [self.sensorCscPeripheral cleanup];
+        self.sensorCscPeripheral = nil;
+    }
 }
 
 @end

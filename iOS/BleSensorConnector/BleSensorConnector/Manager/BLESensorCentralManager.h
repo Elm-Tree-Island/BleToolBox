@@ -27,7 +27,12 @@ instance_interface(BLE3rdPartyCentralManager, defaultManager)
 /**
  *  Start Connect the SpeedX BLE Devices.
  */
-- (void)scan;
+- (void)startScan;
+
+/**
+ Stop BLE scan
+ */
+- (void)stopScan;
 
 
 /**

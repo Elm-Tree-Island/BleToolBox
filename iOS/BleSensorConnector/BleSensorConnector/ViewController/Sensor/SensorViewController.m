@@ -27,7 +27,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     // 开始蓝牙扫描
-    [[BLESensorCentralManager defaultManager] scan];
+    [[BLESensorCentralManager defaultManager] startScan];
     [BLESensorCentralManager defaultManager].powerDelegate = self;
     [BLESensorCentralManager defaultManager].cscDelegate = self;
     [BLESensorCentralManager defaultManager].hrDelegate = self;
@@ -56,12 +56,17 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
+    [[BLESensorCentralManager defaultManager] stopScan];
     [[BLESensorCentralManager defaultManager] disconnect];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc {
+    NSLog(@"%@ dealloc method called", self.class);
 }
 
 #pragma mark - BLEHRSensorPeripheralDelegate Method
