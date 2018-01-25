@@ -6,11 +6,11 @@
 //  Copyright © 2017 MarkCJ. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "SensorViewController.h"
 #import "BLESensorCentralManager.h"
 #import "BleSensorConnectorUtil.h"
 
-@interface ViewController () <BLEHRSensorPeripheralDelegate, BLEPowerSensorPeripheralDelegate, BLECSCSensorPeripheralDelegate>
+@interface SensorViewController () <BLEHRSensorPeripheralDelegate, BLEPowerSensorPeripheralDelegate, BLECSCSensorPeripheralDelegate>
 
 @property (nonatomic, strong) UILabel *lblPower;
 @property (nonatomic, strong) UILabel *lblHR;
@@ -19,7 +19,7 @@
 
 @end
 
-@implementation ViewController
+@implementation SensorViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
