@@ -9,6 +9,7 @@
 #import "SelectListTableViewController.h"
 
 #import "SensorViewController.h"
+#import "BeaconViewController.h"
 
 @interface SelectListTableViewController ()
 
@@ -35,8 +36,8 @@
     if (self.arrDataSource == nil) {
         // Every Element is a array, format as below:
         self.arrDataSource = @[
-                               @[@"Sensor", @"Including Heart Rate, Power, Speed, Cadence and etc"],
-                               @[@"Beacon", @"Searching and sign"]
+                               @[@"Sensor", @"Including Heart Rate, Power, Speed, Cadence and etc."],
+                               @[@"Beacon", @"Searching and sign using Beacon"]
                                ];
     }
 }
@@ -80,6 +81,7 @@
             
         case 1:     // Beacon
         {
+            controller = [[BeaconViewController alloc] init];
         }
             break;
             
