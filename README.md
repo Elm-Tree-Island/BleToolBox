@@ -1,15 +1,19 @@
-# BLE Sensor Connect
-Make your phone connect BLE(Bluetooth Low Energy) cycling sensors.
+# BLE Tool Box
 
 ## Platform
 - Android 4.4+
 - iOS 9.0+
 
-## Supported Sensor
+## Sensor
+Make your phone connect BLE(Bluetooth Low Energy) cycling sensors.
+
+### Supported Sensor
 
 - Bluetooth Heart Rate sensor
 - Bluetooth Cycling and Speed Sensor
 - Bluetooth Power sensor
+
+## Beacon
 
 ## Android Tips:
 
