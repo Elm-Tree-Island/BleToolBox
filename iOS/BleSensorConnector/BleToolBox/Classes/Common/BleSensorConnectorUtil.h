@@ -1,6 +1,6 @@
 //
-//  BleSensorConnectorUtil.h
-//  BleSensorConnector
+//  BleToolBoxUtil.h
+//  BleToolBox
 //
 //  Created by Mark C.J. on 18/05/2017.
 //  Copyright © 2017 MarkCJ. All rights reserved.
