@@ -24,7 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4D5AAC801ECD6D0900DF1599 /* BleSensorConnector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BleSensorConnector.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D5AAC801ECD6D0900DF1599 /* BleToolBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BleToolBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D5AAC841ECD6D0900DF1599 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4D5AAC861ECD6D0900DF1599 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4D5AAC871ECD6D0900DF1599 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -67,7 +67,7 @@
 		4D5AAC771ECD6D0900DF1599 = {
 			isa = PBXGroup;
 			children = (
-				4D5AAC821ECD6D0900DF1599 /* BleSensorConnector */,
+				4D5AAC821ECD6D0900DF1599 /* BleToolBox */,
 				4D5AAC811ECD6D0900DF1599 /* Products */,
 				4D5AACA81ECD7C8A00DF1599 /* Frameworks */,
 			);
@@ -76,12 +76,12 @@
 		4D5AAC811ECD6D0900DF1599 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4D5AAC801ECD6D0900DF1599 /* BleSensorConnector.app */,
+				4D5AAC801ECD6D0900DF1599 /* BleToolBox.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4D5AAC821ECD6D0900DF1599 /* BleSensorConnector */ = {
+		4D5AAC821ECD6D0900DF1599 /* BleToolBox */ = {
 			isa = PBXGroup;
 			children = (
 				4DBAE75320199C6C00EDD918 /* Manager */,
@@ -96,7 +96,7 @@
 				4D5AAC941ECD6D0900DF1599 /* Info.plist */,
 				4D5AAC831ECD6D0900DF1599 /* Supporting Files */,
 			);
-			path = BleSensorConnector;
+			path = BleToolBox;
 			sourceTree = "<group>";
 		};
 		4D5AAC831ECD6D0900DF1599 /* Supporting Files */ = {
@@ -199,9 +199,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		4D5AAC7F1ECD6D0900DF1599 /* BleSensorConnector */ = {
+		4D5AAC7F1ECD6D0900DF1599 /* BleToolBox */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4D5AAC971ECD6D0900DF1599 /* Build configuration list for PBXNativeTarget "BleSensorConnector" */;
+			buildConfigurationList = 4D5AAC971ECD6D0900DF1599 /* Build configuration list for PBXNativeTarget "BleToolBox" */;
 			buildPhases = (
 				4D5AAC7C1ECD6D0900DF1599 /* Sources */,
 				4D5AAC7D1ECD6D0900DF1599 /* Frameworks */,
@@ -211,9 +211,9 @@
 			);
 			dependencies = (
 			);
-			name = BleSensorConnector;
+			name = BleToolBox;
 			productName = BleSensorConnector;
-			productReference = 4D5AAC801ECD6D0900DF1599 /* BleSensorConnector.app */;
+			productReference = 4D5AAC801ECD6D0900DF1599 /* BleToolBox.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -231,7 +231,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 4D5AAC7B1ECD6D0900DF1599 /* Build configuration list for PBXProject "BleSensorConnector" */;
+			buildConfigurationList = 4D5AAC7B1ECD6D0900DF1599 /* Build configuration list for PBXProject "BleToolBox" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -244,7 +244,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4D5AAC7F1ECD6D0900DF1599 /* BleSensorConnector */,
+				4D5AAC7F1ECD6D0900DF1599 /* BleToolBox */,
 			);
 		};
 /* End PBXProject section */
@@ -408,7 +408,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4D5AAC7B1ECD6D0900DF1599 /* Build configuration list for PBXProject "BleSensorConnector" */ = {
+		4D5AAC7B1ECD6D0900DF1599 /* Build configuration list for PBXProject "BleToolBox" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4D5AAC951ECD6D0900DF1599 /* Debug */,
@@ -417,7 +417,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4D5AAC971ECD6D0900DF1599 /* Build configuration list for PBXNativeTarget "BleSensorConnector" */ = {
+		4D5AAC971ECD6D0900DF1599 /* Build configuration list for PBXNativeTarget "BleToolBox" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4D5AAC981ECD6D0900DF1599 /* Debug */,
