@@ -21,7 +21,23 @@
 		4D62DC372019C1F800FAD509 /* BeaconViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D62DC352019C1F800FAD509 /* BeaconViewController.xib */; };
 		4DBAE7642019AF7D00EDD918 /* SelectListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBAE7622019AF7D00EDD918 /* SelectListTableViewController.m */; };
 		4DBAE7652019AF7D00EDD918 /* SelectListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DBAE7632019AF7D00EDD918 /* SelectListTableViewController.xib */; };
+		4DEE826A201B10920073AD7D /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DEE8267201B107E0073AD7D /* Realm.framework */; };
+		4DEE826B201B10920073AD7D /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4DEE8267201B107E0073AD7D /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4DEE826C201B10920073AD7D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4DEE826B201B10920073AD7D /* Realm.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		4D5AAC801ECD6D0900DF1599 /* BleToolBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BleToolBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -50,6 +66,7 @@
 		4DBAE7612019AF7D00EDD918 /* SelectListTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectListTableViewController.h; sourceTree = "<group>"; };
 		4DBAE7622019AF7D00EDD918 /* SelectListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectListTableViewController.m; sourceTree = "<group>"; };
 		4DBAE7632019AF7D00EDD918 /* SelectListTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectListTableViewController.xib; sourceTree = "<group>"; };
+		4DEE8267201B107E0073AD7D /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DEE826A201B10920073AD7D /* Realm.framework in Frameworks */,
 				4D5AACAA1ECD7C8B00DF1599 /* CoreBluetooth.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -94,6 +112,7 @@
 				4D5AAC871ECD6D0900DF1599 /* AppDelegate.m */,
 				4D5AAC8F1ECD6D0900DF1599 /* Assets.xcassets */,
 				4D5AAC941ECD6D0900DF1599 /* Info.plist */,
+				4D62DC4F201B104D00FAD509 /* Frameworks */,
 				4D5AAC831ECD6D0900DF1599 /* Supporting Files */,
 			);
 			path = BleToolBox;
@@ -156,6 +175,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		4D62DC4F201B104D00FAD509 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4DEE8267201B107E0073AD7D /* Realm.framework */,
+			);
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
 		4DBAE75220199C5300EDD918 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -206,6 +233,8 @@
 				4D5AAC7C1ECD6D0900DF1599 /* Sources */,
 				4D5AAC7D1ECD6D0900DF1599 /* Frameworks */,
 				4D5AAC7E1ECD6D0900DF1599 /* Resources */,
+				4DEE826C201B10920073AD7D /* Embed Frameworks */,
+				4D62DC47201B012A00FAD509 /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -261,6 +290,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4D62DC47201B012A00FAD509 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework/strip-frameworks.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4D5AAC7C1ECD6D0900DF1599 /* Sources */ = {
@@ -380,6 +426,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/BleToolBox/Frameworks/**",
+				);
 				INFOPLIST_FILE = BleToolBox/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -396,6 +446,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/BleToolBox/Frameworks/**",
+				);
 				INFOPLIST_FILE = BleSensorConnector/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
