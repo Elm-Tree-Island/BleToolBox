@@ -23,6 +23,8 @@
 		4DBAE7652019AF7D00EDD918 /* SelectListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DBAE7632019AF7D00EDD918 /* SelectListTableViewController.xib */; };
 		4DEE826A201B10920073AD7D /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DEE8267201B107E0073AD7D /* Realm.framework */; };
 		4DEE826B201B10920073AD7D /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4DEE8267201B107E0073AD7D /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4DEE8274201B1D010073AD7D /* BleBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEE8273201B1D010073AD7D /* BleBaseModel.m */; };
+		4DEE8277201B1D620073AD7D /* BleBeaconSignInModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEE8276201B1D620073AD7D /* BleBeaconSignInModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -67,6 +69,10 @@
 		4DBAE7622019AF7D00EDD918 /* SelectListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectListTableViewController.m; sourceTree = "<group>"; };
 		4DBAE7632019AF7D00EDD918 /* SelectListTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectListTableViewController.xib; sourceTree = "<group>"; };
 		4DEE8267201B107E0073AD7D /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
+		4DEE8272201B1D010073AD7D /* BleBaseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BleBaseModel.h; sourceTree = "<group>"; };
+		4DEE8273201B1D010073AD7D /* BleBaseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BleBaseModel.m; sourceTree = "<group>"; };
+		4DEE8275201B1D620073AD7D /* BleBeaconSignInModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BleBeaconSignInModel.h; sourceTree = "<group>"; };
+		4DEE8276201B1D620073AD7D /* BleBeaconSignInModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BleBeaconSignInModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +114,7 @@
 				4D5AACA01ECD763900DF1599 /* CRC */,
 				4D5AACA11ECD763900DF1599 /* HR */,
 				4D5AACA21ECD763900DF1599 /* Power */,
+				4DEE826D201B19460073AD7D /* Model */,
 				4D5AAC861ECD6D0900DF1599 /* AppDelegate.h */,
 				4D5AAC871ECD6D0900DF1599 /* AppDelegate.m */,
 				4D5AAC8F1ECD6D0900DF1599 /* Assets.xcassets */,
@@ -223,6 +230,25 @@
 			path = Beacon;
 			sourceTree = "<group>";
 		};
+		4DEE826D201B19460073AD7D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4DEE8272201B1D010073AD7D /* BleBaseModel.h */,
+				4DEE8273201B1D010073AD7D /* BleBaseModel.m */,
+				4DEE826E201B195D0073AD7D /* Beacon */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4DEE826E201B195D0073AD7D /* Beacon */ = {
+			isa = PBXGroup;
+			children = (
+				4DEE8275201B1D620073AD7D /* BleBeaconSignInModel.h */,
+				4DEE8276201B1D620073AD7D /* BleBeaconSignInModel.m */,
+			);
+			path = Beacon;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -313,6 +339,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DEE8274201B1D010073AD7D /* BleBaseModel.m in Sources */,
 				4D5AAC8B1ECD6D0900DF1599 /* SensorViewController.m in Sources */,
 				4D5AACA61ECD763900DF1599 /* BLEPowerSensorPeripheral.m in Sources */,
 				4DBAE7642019AF7D00EDD918 /* SelectListTableViewController.m in Sources */,
@@ -321,6 +348,7 @@
 				4D5AACA51ECD763900DF1599 /* BLESensorCentralManager.m in Sources */,
 				4D5AACB31ECDAFB700DF1599 /* BLEHRSensorPeripheral.m in Sources */,
 				4D5AAC851ECD6D0900DF1599 /* main.m in Sources */,
+				4DEE8277201B1D620073AD7D /* BleBeaconSignInModel.m in Sources */,
 				4D62DC362019C1F800FAD509 /* BeaconViewController.m in Sources */,
 				4D5AACAD1ECD7F1200DF1599 /* BleSensorConnectorUtil.m in Sources */,
 			);
