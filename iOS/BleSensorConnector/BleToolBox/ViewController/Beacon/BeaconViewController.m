@@ -16,12 +16,13 @@
 #define TARGET_BEACON_DEVICE_UUID           @"E06AFC0F-F8AE-4EA9-9095-1BF68DB6494D"
 #define TARGET_BEACON_SERVICE_UUID          @"00001803-494C-4F47-4943-544543480000"
 
-@interface BeaconViewController () <CBCentralManagerDelegate>
+@interface BeaconViewController () <CBCentralManagerDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UILabel *lblUUIDValue;
 @property (weak, nonatomic) IBOutlet UILabel *lblNameValue;
 @property (weak, nonatomic) IBOutlet UILabel *lblRSSIValue;
 @property (weak, nonatomic) IBOutlet UILabel *lblAdvIntervalValue;
+@property (weak, nonatomic) IBOutlet UITableView *tableviewSignResult;
 
 @property (nonatomic, strong) CBCentralManager *centralManager;
 
@@ -29,6 +30,8 @@
 
 @property (nonatomic, strong) RLMRealm *realmInstance;      // 数据库存储Instance
 @property (nonatomic, strong) NSDate *lastSignInTime;       // 上次签到时间
+
+@property (nonatomic, strong) RLMResults<BleBeaconSignInModel *> *resultsAllSignInRecords;         // 所有的签到记录数据源
 
 @end
 
@@ -44,15 +47,20 @@
         self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:[NSDictionary dictionaryWithObject:@YES forKey:CBCentralManagerOptionShowPowerAlertKey]];
     }
     
+    [self setupTableView];
+    
     if (self.realmInstance == nil) {
         self.realmInstance = [RLMRealm defaultRealm];
         
-
+        // Get all the sign in records
+        self.resultsAllSignInRecords = [[BleBeaconSignInModel allObjects] sortedResultsUsingKeyPath:@"signInTime" ascending:YES];
     }
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    [self.tableviewSignResult reloadData];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -69,18 +77,24 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - UI Setup
+- (void)setupTableView {
+    self.tableviewSignResult.delegate = self;
+    self.tableviewSignResult.dataSource = self;
+}
+
 #pragma mark - CBCentralManagerDelegate
 
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central {
     NSLog(@"Current Bluetooth State = %ld (5 -> ON)", (long)central.state);
     if (central.state == CBCentralManagerStatePoweredOn) {
         [self.centralManager scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:TARGET_BEACON_SERVICE_UUID]] options:@{ CBCentralManagerScanOptionAllowDuplicatesKey: @YES }];
-//        [self.centralManager scanForPeripheralsWithServices:nil options:@{ CBCentralManagerScanOptionAllowDuplicatesKey: @YES }];
+        //        [self.centralManager scanForPeripheralsWithServices:nil options:@{ CBCentralManagerScanOptionAllowDuplicatesKey: @YES }];
     }
 }
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI {
-
+    
     // https://developer.apple.com/documentation/corebluetooth/cbcentralmanagerdelegate/advertisement_data_retrieval_keys?language=objc
     // Advertisement Data Retrieval Keys:
     //    CBAdvertisementDataLocalNameKey
@@ -91,39 +105,39 @@
     //    CBAdvertisementDataTxPowerLevelKey
     //    CBAdvertisementDataIsConnectable
     //    CBAdvertisementDataSolicitedServiceUUIDsKey
-
+    
     // Device Name
     NSString *localName = [advertisementData objectForKey:CBAdvertisementDataLocalNameKey];
-
+    
     // Manufacturer Data
     NSData *manuFacturerData = [advertisementData objectForKey:CBAdvertisementDataManufacturerDataKey];
-
+    
     // Service Data
     //    A dictionary containing service-specific advertisement data.
     //
     //    The keys are CBUUID objects, representing CBService UUIDs. The values are NSData objects, representing service-specific data.
     NSDictionary *dicServiceData = [advertisementData objectForKey:CBAdvertisementDataServiceDataKey];
-
+    
     // Service UUID, An array of service UUIDs.
     NSArray *arrServices = [advertisementData objectForKey:CBAdvertisementDataServiceUUIDsKey];
-
+    
     // An array of one or more CBUUID objects, representing CBService UUIDs that were found in the “overflow” area of the advertisement data.
     //    Due to the nature of the data stored in this area, UUIDs listed here are “best effort” and may not always be accurate. For details about the overflow area of advertisement data, see the startAdvertising: method in CBPeripheralManager.
     NSArray *arrOverflowServiceUUIDs = [advertisementData objectForKey:CBAdvertisementDataOverflowServiceUUIDsKey];
-
+    
     //    A number (an instance of NSNumber) containing the transmit power of a peripheral.
     //
     //    This key and value are available if the broadcaster (peripheral) provides its Tx power level in its advertising packet. Using the RSSI value and the Tx power level, it is possible to calculate path loss.
     NSNumber *txPowerLevel = [advertisementData objectForKey:CBAdvertisementDataTxPowerLevelKey];
-
+    
     //    A Boolean value that indicates whether the advertising event type is connectable.
     //
     //    The value for this key is an NSNumber object. You can use this value to determine whether a peripheral is connectable at a particular moment.
     BOOL isConnectable = [advertisementData objectForKey:CBAdvertisementDataIsConnectable];
-
+    
     // An array of one or more CBUUID objects, representing CBService UUIDs.
     NSArray *arrSolicitedServiceUUIDs = [advertisementData objectForKey:CBAdvertisementDataSolicitedServiceUUIDsKey];
-
+    
     // Service UUID Value
     CBUUID *advDataServiceUUID = arrServices[0];
     
@@ -140,25 +154,31 @@
             NSLog(@"FOUNT Device %@, adv interval = %d ms", localName, advTimeInterval);
         }
         self.prevAdvTimeInterval = timeInterval;
-
+        
         
         // 获取最近的签到时间
         BleBeaconSignInModel *signInModel = [self getLatestSignInRecord:TARGET_BEACON_SERVICE_UUID];
-        if (signInModel == nil && (signInModel && [self canSignNow:signInModel.signInTime])) {
+        if (signInModel == nil || (signInModel && [self canSignNow:signInModel.signInTime])) {
             // 保存打点到数据库
             BleBeaconSignInModel *signInModel = [[BleBeaconSignInModel alloc] initWithBeaconName:localName UUID:advDataServiceUUID.UUIDString RSSI:RSSI.integerValue signInTime:[NSDate date]];
-
+            
             // 保存到数据库
             [self.realmInstance beginWriteTransaction];
             [self.realmInstance addObject:signInModel];
             [self.realmInstance commitWriteTransaction];
             NSLog(@"签到成功, 签到信息为：%@", signInModel);
+            
+            // 刷新UI
+            self.resultsAllSignInRecords = [[BleBeaconSignInModel allObjects] sortedResultsUsingKeyPath:@"signInTime" ascending:YES];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableviewSignResult reloadData];
+            });
         } else {
             NSLog(@"今日已签到，无需重复签到");
         }
         
         // 签到完成后停止扫描
-//        [self.centralManager stopScan];
+        [self.centralManager stopScan];
     }
 }
 
@@ -200,7 +220,7 @@
 
 /**
  获取最新的签到记录
-
+ 
  @return BleBeaconSignInModel
  */
 - (BleBeaconSignInModel *)getLatestSignInRecord:(NSString *)serviceUUID {
@@ -219,10 +239,9 @@
     return  latestSignInRecord;
 }
 
-
 /**
  Clear all the data in the database
-
+ 
  @return BOOL, delete data result.
  */
 - (BOOL)deleteAllDataInDB {
@@ -239,7 +258,7 @@
 
 /**
  检查是否可以签到，即检测是不是同一天
-
+ 
  @return BOOL
  */
 - (BOOL)canSignNow:(NSDate *)lastSignInTime {
@@ -258,6 +277,33 @@
     }
     
     return YES;
+}
+
+#pragma mark - UITableViewDelegate
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 30;
+}
+
+#pragma mark - UITableViewDataSource
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.resultsAllSignInRecords.count;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *identifier = @"beacon_sign_in_tableview_cell_identifier";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+    }
+    
+    BleBeaconSignInModel *record = [self.resultsAllSignInRecords objectAtIndex:indexPath.row];
+    cell.textLabel.text = record.beaconName;
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"MM-dd hh:mm:ss";
+    cell.detailTextLabel.text = [dateFormatter stringFromDate:record.signInTime];
+    
+    return cell;
 }
 
 @end

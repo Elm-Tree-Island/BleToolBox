@@ -16,6 +16,7 @@
                 <outlet property="lblNameValue" destination="axW-s6-VxI" id="roW-ui-FlQ"/>
                 <outlet property="lblRSSIValue" destination="m5q-zD-g0l" id="UIV-iz-Ze0"/>
                 <outlet property="lblUUIDValue" destination="Ddr-DA-GCa" id="6TO-pY-RRP"/>
+                <outlet property="tableviewSignResult" destination="Kt8-BS-0bS" id="DUl-o4-Jzd"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
