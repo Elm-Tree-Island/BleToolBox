@@ -47,10 +47,7 @@
     if (self.realmInstance == nil) {
         self.realmInstance = [RLMRealm defaultRealm];
         
-//        // Test, delete all the data in the DB
-//        [self.realmInstance beginWriteTransaction];
-//        [self.realmInstance deleteAllObjects];
-//        [self.realmInstance commitWriteTransaction];
+
     }
 }
 
@@ -77,8 +74,8 @@
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central {
     NSLog(@"Current Bluetooth State = %ld (5 -> ON)", (long)central.state);
     if (central.state == CBCentralManagerStatePoweredOn) {
-//        [self.centralManager scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:@"1803"]] options:@{ CBCentralManagerScanOptionAllowDuplicatesKey: @YES }];
-        [self.centralManager scanForPeripheralsWithServices:nil options:@{ CBCentralManagerScanOptionAllowDuplicatesKey: @YES }];
+        [self.centralManager scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:TARGET_BEACON_SERVICE_UUID]] options:@{ CBCentralManagerScanOptionAllowDuplicatesKey: @YES }];
+//        [self.centralManager scanForPeripheralsWithServices:nil options:@{ CBCentralManagerScanOptionAllowDuplicatesKey: @YES }];
     }
 }
 
@@ -155,13 +152,13 @@
             [self.realmInstance beginWriteTransaction];
             [self.realmInstance addObject:signInModel];
             [self.realmInstance commitWriteTransaction];
-            NSLog(@"签到成功");
+            NSLog(@"签到成功, 签到信息为：%@", signInModel);
         } else {
             NSLog(@"今日已签到，无需重复签到");
         }
         
         // 签到完成后停止扫描
-        [self.centralManager stopScan];
+//        [self.centralManager stopScan];
     }
 }
 
@@ -222,6 +219,23 @@
     return  latestSignInRecord;
 }
 
+
+/**
+ Clear all the data in the database
+
+ @return BOOL, delete data result.
+ */
+- (BOOL)deleteAllDataInDB {
+    if (self.realmInstance) {
+        // Test, delete all the data in the DB
+        [self.realmInstance beginWriteTransaction];
+        [self.realmInstance deleteAllObjects];
+        [self.realmInstance commitWriteTransaction];
+        return YES;
+    } else {
+        return NO;
+    }
+}
 
 /**
  检查是否可以签到，即检测是不是同一天
