@@ -10,20 +10,22 @@
 
 @interface BleBeaconSignInModel : BleBaseModel
 
-@property NSString *beaconName;     // the beacon name.
-@property NSString *beaconUUID;     // the beacon UUID.
-@property NSInteger signInRSSI;     // the beacon RSSI when sign in.
-@property NSDate *signInTime;       // time then sign in.
+@property NSString *beaconName;             // the beacon name.
+@property NSString *beaconDeviceUUID;       // the beacon UUID.
+@property NSString *beaconServiceUUID;      // the beacon service UUID.
+@property NSInteger signInRSSI;             // the beacon RSSI when sign in.
+@property NSDate *signInTime;               // time then sign in.
 
 /**
- <#Description#>
-
- @param name <#name description#>
- @param uuid <#uuid description#>
- @param rssi <#rssi description#>
- @param time <#time description#>
- @return <#return value description#>
+ Init the beacon model by beacon information
+ 
+ @param name            Device name
+ @param deviceUUID      Device UUID
+ @param serviceUUID     Device Service UUID
+ @param rssi            RSSI value
+ @param time            Sign in time
+ @return
  */
--(instancetype)initWithBeaconName:(NSString *)name UUID:(NSString *)uuid RSSI:(NSInteger)rssi signInTime:(NSDate *)time;
+-(instancetype)initWithBeaconName:(NSString *)name deviceUUID:(NSString *)deviceUUID serviceUUID:(NSString *)serviceUUID RSSI:(NSInteger)rssi signInTime:(NSDate *)time;
 
 @end

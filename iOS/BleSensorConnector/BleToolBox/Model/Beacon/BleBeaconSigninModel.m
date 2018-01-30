@@ -10,12 +10,23 @@
 
 @implementation BleBeaconSignInModel
 
--(instancetype)initWithBeaconName:(NSString *)name UUID:(NSString *)uuid RSSI:(NSInteger)rssi signInTime:(NSDate *)time {
+/**
+ Init the beacon model by beacon information
+ 
+ @param name            Device name
+ @param deviceUUID      Device UUID
+ @param serviceUUID     Device Service UUID
+ @param rssi            RSSI value
+ @param time            Sign in time
+ @return
+ */
+-(instancetype)initWithBeaconName:(NSString *)name deviceUUID:(NSString *)deviceUUID serviceUUID:(NSString *)serviceUUID RSSI:(NSInteger)rssi signInTime:(NSDate *)time {
     self = [super init];
     
     self = [super initWithValue:@{
                           @"beaconName" : name,
-                          @"beaconUUID" : uuid,
+                          @"beaconDeviceUUID" : deviceUUID,
+                          @"beaconServiceUUID" : serviceUUID,
                           @"signInRSSI" : @(rssi),
                           @"signInTime" : time
                           }];

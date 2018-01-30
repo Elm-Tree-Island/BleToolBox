@@ -53,7 +53,7 @@
         self.realmInstance = [RLMRealm defaultRealm];
         
         // Get all the sign in records
-        self.resultsAllSignInRecords = [[BleBeaconSignInModel allObjects] sortedResultsUsingKeyPath:@"signInTime" ascending:YES];
+        self.resultsAllSignInRecords = [[BleBeaconSignInModel allObjects] sortedResultsUsingKeyPath:@"signInTime" ascending:NO];
     }
 }
 
@@ -94,6 +94,8 @@
 }
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI {
+    
+    NSString *deviceUUID = peripheral.identifier.UUIDString;
     
     // https://developer.apple.com/documentation/corebluetooth/cbcentralmanagerdelegate/advertisement_data_retrieval_keys?language=objc
     // Advertisement Data Retrieval Keys:
@@ -157,19 +159,19 @@
         
         
         // 获取最近的签到时间
-        BleBeaconSignInModel *signInModel = [self getLatestSignInRecord:TARGET_BEACON_SERVICE_UUID];
-        if (signInModel == nil || (signInModel && [self canSignNow:signInModel.signInTime])) {
+        BleBeaconSignInModel *lastSignInModel = [self getLatestSignInRecord:deviceUUID];
+        if (lastSignInModel == nil || (lastSignInModel && [self canSignNow:lastSignInModel.signInTime])) {
             // 保存打点到数据库
-            BleBeaconSignInModel *signInModel = [[BleBeaconSignInModel alloc] initWithBeaconName:localName UUID:advDataServiceUUID.UUIDString RSSI:RSSI.integerValue signInTime:[NSDate date]];
+            BleBeaconSignInModel *newSignInModel = [[BleBeaconSignInModel alloc] initWithBeaconName:localName deviceUUID:deviceUUID serviceUUID:advDataServiceUUID.UUIDString RSSI:RSSI.integerValue signInTime:[NSDate date]];
             
             // 保存到数据库
             [self.realmInstance beginWriteTransaction];
-            [self.realmInstance addObject:signInModel];
+            [self.realmInstance addObject:newSignInModel];
             [self.realmInstance commitWriteTransaction];
-            NSLog(@"签到成功, 签到信息为：%@", signInModel);
+            NSLog(@"签到成功, 签到信息为：%@", newSignInModel);
             
             // 刷新UI
-            self.resultsAllSignInRecords = [[BleBeaconSignInModel allObjects] sortedResultsUsingKeyPath:@"signInTime" ascending:YES];
+            self.resultsAllSignInRecords = [[BleBeaconSignInModel allObjects] sortedResultsUsingKeyPath:@"signInTime" ascending:NO];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableviewSignResult reloadData];
             });
@@ -223,13 +225,13 @@
  
  @return BleBeaconSignInModel
  */
-- (BleBeaconSignInModel *)getLatestSignInRecord:(NSString *)serviceUUID {
-    if (serviceUUID == nil || serviceUUID.length == 0) {
+- (BleBeaconSignInModel *)getLatestSignInRecord:(NSString *)deviceUUID {
+    if (deviceUUID == nil || deviceUUID.length == 0) {
         return nil;
     }
     
     BleBeaconSignInModel *latestSignInRecord = nil;
-    RLMResults<BleBeaconSignInModel *> *allRecords = [BleBeaconSignInModel objectsWhere:@"beaconUUID == %@", serviceUUID];
+    RLMResults<BleBeaconSignInModel *> *allRecords = [BleBeaconSignInModel objectsWhere:@"beaconDeviceUUID == %@", deviceUUID];
     
     if (allRecords && allRecords.count > 0) {
         RLMResults<BleBeaconSignInModel *> *sortedAllRecords = [allRecords sortedResultsUsingKeyPath:@"signInTime" ascending:NO];
