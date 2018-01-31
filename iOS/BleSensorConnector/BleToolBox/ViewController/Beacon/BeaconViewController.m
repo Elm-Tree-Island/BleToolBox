@@ -13,8 +13,10 @@
 // Beacon sign in data saving.
 #import "BleBeaconSigninModel.h"
 
-#define TARGET_BEACON_DEVICE_UUID           @"E06AFC0F-F8AE-4EA9-9095-1BF68DB6494D"
-#define TARGET_BEACON_SERVICE_UUID          @"00001803-494C-4F47-4943-544543480000"
+#define TARGET_BEACON_ADV_UUID              @"E06AFC0F-F8AE-4EA9-9095-1BF68DB6494D"     // Advertising UUID，暂时未使用
+
+#define TARGET_BEACON_DEVICE_UUID           @"8DBAF27B-01DD-0583-4514-DCD96D6439A6"     // BEACON UUID
+#define TARGET_BEACON_SERVICE_UUID          @"00001803-494C-4F47-4943-544543480000"     // BEACON SERVICE UUID
 
 @interface BeaconViewController () <CBCentralManagerDelegate, UITableViewDelegate, UITableViewDataSource>
 
@@ -89,7 +91,6 @@
     NSLog(@"Current Bluetooth State = %ld (5 -> ON)", (long)central.state);
     if (central.state == CBCentralManagerStatePoweredOn) {
         [self.centralManager scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:TARGET_BEACON_SERVICE_UUID]] options:@{ CBCentralManagerScanOptionAllowDuplicatesKey: @YES }];
-        //        [self.centralManager scanForPeripheralsWithServices:nil options:@{ CBCentralManagerScanOptionAllowDuplicatesKey: @YES }];
     }
 }
 
@@ -143,7 +144,7 @@
     // Service UUID Value
     CBUUID *advDataServiceUUID = arrServices[0];
     
-    if (localName != nil && advDataServiceUUID && [advDataServiceUUID.UUIDString isEqualToString:TARGET_BEACON_SERVICE_UUID]) {
+    if (localName != nil && advDataServiceUUID && [deviceUUID isEqualToString:TARGET_BEACON_DEVICE_UUID]) {
         self.lblNameValue.text = localName;
         self.lblUUIDValue.text = advDataServiceUUID.UUIDString;
         self.lblRSSIValue.text = [NSString stringWithFormat:@"%d dBm", RSSI.intValue];
@@ -156,7 +157,6 @@
             NSLog(@"FOUNT Device %@, adv interval = %d ms", localName, advTimeInterval);
         }
         self.prevAdvTimeInterval = timeInterval;
-        
         
         // 获取最近的签到时间
         BleBeaconSignInModel *lastSignInModel = [self getLatestSignInRecord:deviceUUID];
