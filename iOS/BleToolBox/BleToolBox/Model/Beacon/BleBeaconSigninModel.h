@@ -24,7 +24,6 @@
  @param serviceUUID     Device Service UUID
  @param rssi            RSSI value
  @param time            Sign in time
- @return
  */
 -(instancetype)initWithBeaconName:(NSString *)name deviceUUID:(NSString *)deviceUUID serviceUUID:(NSString *)serviceUUID RSSI:(NSInteger)rssi signInTime:(NSDate *)time;
 
