@@ -12,10 +12,10 @@
 
 @interface SensorViewController () <BLEHRSensorPeripheralDelegate, BLEPowerSensorPeripheralDelegate, BLECSCSensorPeripheralDelegate>
 
-@property (nonatomic, strong) UILabel *lblPower;
-@property (nonatomic, strong) UILabel *lblHR;
-@property (nonatomic, strong) UILabel *lblCadence;
-@property (nonatomic, strong) UILabel *lblSpeed;
+@property (weak, nonatomic) IBOutlet UILabel *lblPowerValue;
+@property (weak, nonatomic) IBOutlet UILabel *lblHRValue;
+@property (weak, nonatomic) IBOutlet UILabel *lblCadenceValue;
+@property (weak, nonatomic) IBOutlet UILabel *lblSpeedValue;
 
 @end
 
@@ -23,7 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Sensor Connector";
+    self.title = @"Sensor";
     self.view.backgroundColor = [UIColor whiteColor];
     
     // 开始蓝牙扫描
@@ -31,31 +31,12 @@
     [BLESensorCentralManager defaultManager].powerDelegate = self;
     [BLESensorCentralManager defaultManager].cscDelegate = self;
     [BLESensorCentralManager defaultManager].hrDelegate = self;
-    
-    // 功率
-    self.lblPower = [[UILabel alloc] initWithFrame:CGRectMake(20, 80, 200, 40)];
-    self.lblPower.text = @"Power: ";
-    [self.view addSubview:self.lblPower];
-    
-    // 心率
-    self.lblHR = [[UILabel alloc] initWithFrame:CGRectMake(20, 120, 200, 40)];
-    self.lblHR.text = @"HR: ";
-    [self.view addSubview:self.lblHR];
-    
-    // 速度
-    self.lblSpeed = [[UILabel alloc] initWithFrame:CGRectMake(20, 160, 200, 40)];
-    self.lblSpeed.text = @"Speed: ";
-    [self.view addSubview:self.lblSpeed];
-    
-    // 速度
-    self.lblCadence = [[UILabel alloc] initWithFrame:CGRectMake(20, 200, 200, 40)];
-    self.lblCadence.text = @"Cadence: ";
-    [self.view addSubview:self.lblCadence];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
+    // Stop scan and disconnect.
     [[BLESensorCentralManager defaultManager] stopScan];
     [[BLESensorCentralManager defaultManager] disconnect];
 }
@@ -71,31 +52,31 @@
 
 #pragma mark - BLEHRSensorPeripheralDelegate Method
 - (void) didHRDataReceived:(int) hr {
-    NSString *logContent = [NSString stringWithFormat:@"HR : %d BPM", hr];
+    NSString *logContent = [NSString stringWithFormat:@"%d BPM", hr];
     NSLog(@"%@", logContent);
-    self.lblHR.text = logContent;
+    self.lblHRValue.text = logContent;
 }
 
 #pragma mark - BLEPowerSensorPeripheralDelegate
 - (void) didPowerDataReceived:(int)powerInWatts {
-    NSString *logContent = [NSString stringWithFormat:@"Power : %d watts", powerInWatts];
+    NSString *logContent = [NSString stringWithFormat:@"%d W", powerInWatts];
     NSLog(@"%@", logContent);
-    self.lblPower.text = logContent;
+    self.lblPowerValue.text = logContent;
 }
 
 #pragma mark - BLECSCSensorPeripheralDelegate
 - (void) didSpeedWheelRevolution:(int)wheelRevolution lastWheelEventTime:(int)lastEventTime {
     double speed = [BleSensorConnectorUtil calculateSpeedWithWheelRev:wheelRevolution lastWheelEventTime:lastEventTime wheelCircumferenceInMM:2046];
-    NSString *logContent = [NSString stringWithFormat:@"Speed : %.1f km/h", speed];
+    NSString *logContent = [NSString stringWithFormat:@"%.1f km/h", speed];
     NSLog(@"%@", logContent);
-    self.lblSpeed.text = logContent;
+    self.lblSpeedValue.text = logContent;
 }
 
 - (void) didCadenceRevolution:(int)cadenceRev lastCadenceEventTime:(int)lastEventTime {
     int cadence = [BleSensorConnectorUtil calculateCadenceWithCrankRev:cadenceRev lastCrankEventTime:lastEventTime];
-    NSString *logContent = [NSString stringWithFormat:@"Cadence : %d RPM", cadence];
+    NSString *logContent = [NSString stringWithFormat:@"%d RPM", cadence];
     NSLog(@"%@", logContent);
-    self.lblCadence.text = logContent;
+    self.lblCadenceValue.text = logContent;
 }
 
 @end
