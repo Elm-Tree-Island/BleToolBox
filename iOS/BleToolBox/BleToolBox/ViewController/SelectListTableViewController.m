@@ -10,6 +10,7 @@
 
 #import "SensorViewController.h"
 #import "BeaconViewController.h"
+#import "WiFiViewController.h"
 
 @interface SelectListTableViewController ()
 
@@ -37,7 +38,8 @@
         // Every Element is a array, format as below:
         self.arrDataSource = @[
                                @[@"Sensor", @"Including Heart Rate, Power, Speed, Cadence and etc."],
-                               @[@"Beacon", @"Searching and sign using Beacon"]
+                               @[@"Beacon", @"Searching and sign using Beacon"],
+                               @[@"WiFi", @"WiFi scan and power test"]
                                ];
     }
 }
@@ -82,6 +84,12 @@
         case 1:     // Beacon
         {
             controller = [[BeaconViewController alloc] init];
+        }
+            break;
+            
+        case 2:     // WiFi
+        {
+            controller = [[WiFiViewController alloc] init];
         }
             break;
             

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D2A45E2205F7A4A00A2BE99 /* WiFiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D2A45E0205F7A4A00A2BE99 /* WiFiViewController.m */; };
+		4D2A45E3205F7A4A00A2BE99 /* WiFiViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D2A45E1205F7A4A00A2BE99 /* WiFiViewController.xib */; };
+		4D2A45E5205F92A500A2BE99 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D2A45E4205F92A500A2BE99 /* ExternalAccessory.framework */; };
 		4D5AAC851ECD6D0900DF1599 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5AAC841ECD6D0900DF1599 /* main.m */; };
 		4D5AAC881ECD6D0900DF1599 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5AAC871ECD6D0900DF1599 /* AppDelegate.m */; };
 		4D5AAC8B1ECD6D0900DF1599 /* SensorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5AAC8A1ECD6D0900DF1599 /* SensorViewController.m */; };
@@ -43,6 +46,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4D2A45DF205F7A4A00A2BE99 /* WiFiViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WiFiViewController.h; sourceTree = "<group>"; };
+		4D2A45E0205F7A4A00A2BE99 /* WiFiViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WiFiViewController.m; sourceTree = "<group>"; };
+		4D2A45E1205F7A4A00A2BE99 /* WiFiViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WiFiViewController.xib; sourceTree = "<group>"; };
+		4D2A45E4205F92A500A2BE99 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
+		4D2A45E6205F92A600A2BE99 /* BleToolBox.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BleToolBox.entitlements; sourceTree = "<group>"; };
 		4D5AAC801ECD6D0900DF1599 /* BleToolBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BleToolBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D5AAC841ECD6D0900DF1599 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4D5AAC861ECD6D0900DF1599 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -82,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D2A45E5205F92A500A2BE99 /* ExternalAccessory.framework in Frameworks */,
 				4DEE826A201B10920073AD7D /* Realm.framework in Frameworks */,
 				4D5AACAA1ECD7C8B00DF1599 /* CoreBluetooth.framework in Frameworks */,
 			);
@@ -90,6 +99,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4D2A45DE205F79D400A2BE99 /* WiFi */ = {
+			isa = PBXGroup;
+			children = (
+				4D2A45DF205F7A4A00A2BE99 /* WiFiViewController.h */,
+				4D2A45E0205F7A4A00A2BE99 /* WiFiViewController.m */,
+				4D2A45E1205F7A4A00A2BE99 /* WiFiViewController.xib */,
+			);
+			path = WiFi;
+			sourceTree = "<group>";
+		};
 		4D5AAC771ECD6D0900DF1599 = {
 			isa = PBXGroup;
 			children = (
@@ -110,6 +129,7 @@
 		4D5AAC821ECD6D0900DF1599 /* BleToolBox */ = {
 			isa = PBXGroup;
 			children = (
+				4D2A45E6205F92A600A2BE99 /* BleToolBox.entitlements */,
 				4DBAE75320199C6C00EDD918 /* Manager */,
 				4DBAE75220199C5300EDD918 /* ViewController */,
 				4D5AAC9E1ECD763900DF1599 /* Common */,
@@ -179,6 +199,7 @@
 		4D5AACA81ECD7C8A00DF1599 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4D2A45E4205F92A500A2BE99 /* ExternalAccessory.framework */,
 				4D5AACA91ECD7C8B00DF1599 /* CoreBluetooth.framework */,
 			);
 			name = Frameworks;
@@ -195,6 +216,7 @@
 		4DBAE75220199C5300EDD918 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				4D2A45DE205F79D400A2BE99 /* WiFi */,
 				4DBAE75A20199CC700EDD918 /* Beacon */,
 				4DBAE75920199CB500EDD918 /* Sensor */,
 				4DBAE7612019AF7D00EDD918 /* SelectListTableViewController.h */,
@@ -285,7 +307,19 @@
 				TargetAttributes = {
 					4D5AAC7F1ECD6D0900DF1599 = {
 						CreatedOnToolsVersion = 8.3.2;
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = BHWTW6L8X6;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.NetworkExtensions.iOS = {
+								enabled = 0;
+							};
+							com.apple.WAC = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -316,6 +350,7 @@
 				4D5AAC901ECD6D0900DF1599 /* Assets.xcassets in Resources */,
 				4D80C3AE202AE199005E036C /* SensorViewController.xib in Resources */,
 				4DBAE7652019AF7D00EDD918 /* SelectListTableViewController.xib in Resources */,
+				4D2A45E3205F7A4A00A2BE99 /* WiFiViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,6 +382,7 @@
 				4D5AAC8B1ECD6D0900DF1599 /* SensorViewController.m in Sources */,
 				4D5AACA61ECD763900DF1599 /* BLEPowerSensorPeripheral.m in Sources */,
 				4DBAE7642019AF7D00EDD918 /* SelectListTableViewController.m in Sources */,
+				4D2A45E2205F7A4A00A2BE99 /* WiFiViewController.m in Sources */,
 				4D5AAC881ECD6D0900DF1599 /* AppDelegate.m in Sources */,
 				4D5AACB01ECD8EB500DF1599 /* BLECSCSensorPeripheral.m in Sources */,
 				4D5AACA51ECD763900DF1599 /* BLESensorCentralManager.m in Sources */,
@@ -467,9 +503,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BleToolBox/BleToolBox.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = BHWTW6L8X6;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/BleToolBox/Frameworks/**",
@@ -487,9 +524,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BleToolBox/BleToolBox.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = BHWTW6L8X6;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/BleToolBox/Frameworks/**",
