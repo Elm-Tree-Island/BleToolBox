@@ -79,33 +79,17 @@
     
     __weak typeof(self) weakself = self;
     BOOL returnType = [NEHotspotHelper registerWithOptions: options queue: queue handler: ^(NEHotspotHelperCommand * cmd) {
-        
-        NSLog(@"4.Finish");
-        
         NSMutableString* resultString = [[NSMutableString alloc] initWithString: @""];
-        
         NEHotspotNetwork* network;
         if (cmd.commandType == kNEHotspotHelperCommandTypeEvaluate || cmd.commandType == kNEHotspotHelperCommandTypeFilterScanList) {
-            // 遍历 WiFi 列表，打印基本信息
+            // Print WiFi List Information
             for (network in cmd.networkList) {
                 NSString* wifiInfoString = [[NSString alloc] initWithFormat: @"SSID: %@\nMac地址: %@\n信号强度: %f\nCommandType:%ld\n\n",
                                             network.SSID, network.BSSID, network.signalStrength, (long)cmd.commandType];
                 NSLog(@"%@", wifiInfoString);
                 [resultString appendString: wifiInfoString];
-                
-                // 检测到指定 WiFi 可设定密码直接连接
-                if ([network.SSID isEqualToString: @"测试 WiFi"]) {
-                    [network setConfidence: kNEHotspotHelperConfidenceHigh];
-                    [network setPassword: @"123456789"];
-                    NEHotspotHelperResponse *response = [cmd createResponse: kNEHotspotHelperResultSuccess];
-                    NSLog(@"Response CMD: %@", response);
-                    [response setNetworkList: @[network]];
-                    [response setNetwork: network];
-                    [response deliver];
-                }
             }
         }
-        
         weakself.infoString = resultString;
     }];
     
